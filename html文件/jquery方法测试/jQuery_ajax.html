@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>jquery1</title>
+	  <meta http-equiv="Content-Type" content="text/html; charset=GBK";>
+
+		  
+	</style>
+
+	<script  src="../js/jquery-1.8.3.min.js" charset="UTF-8"></script>
+
+</head>
+
+<body>
+
+	<div id="div1"></div>
+	<button id="button1">按钮1</button><br/>
+
+	<button id="button2">按钮2</button><br/>
+
+	<button id="button3">按钮3</button><br/>
+
+	<button id="button4">按钮4</button><br/>
+
+	<button id="button5">按钮5</button><br/>
+
+
+	
+
+
+
+
+
+<!--注释-->
+
+<!--在鼠标事件中，mouseover和mouseout事件通常组合使用。
+		例如，当光标移动到某menu上，出现一个下拉菜单，移出时隐藏该下拉菜单。这样的组合十分常见，jQuery提供了一种简单的方式——hover()。
+		hover()接收2个函数作为参数，第一个函数表示当鼠标移动到该位置时执行的操作，第二个函数表示鼠标离开时所要执行的操作-->
+
+		<!--这里需要注意，在将函数名指定为事件处理参数时，是没有圆括号的。
+	如果我们传入带圆括号的函数，那么该函数会立即执行，传入的参数实际上是该函数执行的结果。而没有圆括号，传入的是函数的引用。-->
+
+	<!--AJAX请求发送前执行函数。Ajax事件。
+		$("#msg").ajaxSend(function(evt,request,settings){})是全局事件,也就是说,
+		只要该页面定义了这个函数,那么,在每个ajax请求前都会执行该函数,这既与该函数前面的选择器#msg无关,-->
+
+<script type="text/javascript">
+	$(function(){
+		$("#button1").click(login);
+
+		$("#button2").click(getJSON);
+
+		$("#button3").click(getScript);
+
+		$("#div1").ajaxSend(function(event, obj, options) {
+			alert("无论点击按钮1还是按钮2,都会触发我");
+
+			console.info(event);
+			console.log(2222222);
+
+			if (options.url == "test1") {
+				alert("按钮4");
+			} else if (options.url == "test2") {
+				alert("按钮5");
+			}
+		});
+
+
+
+		function login(){
+
+			<!--几种ajax的请求方式-->
+			/*
+			jQuery.getJSON(
+				 "http://localhost:8080/haibaojinfu/appUserAction.app?action=login",
+				 {username:"chenliang",password:"123456",mark:"1"},
+				 function(data, textStatus, jqXHR){
+					alert("data="+JSON.stringify(data));
+					alert("textStatus="+textStatus);
+					alert("jqXHR="+JSON.stringify(jqXHR));
+				 }
+			);
+			*/
+
+
+			$.ajax({
+			  url:  "http://localhost:8080/haibaojinfu/appUserAction.app?action=login",
+			  data: {username:"chenliang",password:"123456",mark:"1"},
+			  success: function(data, textStatus, jqXHR){
+					alert("data="+JSON.stringify(data));
+					alert("textStatus="+textStatus);
+					alert("jqXHR="+JSON.stringify(jqXHR));
+				 },
+			  dataType: "json"
+			});
+		}
+
+
+		function getJSON(){
+			
+			$.getJSON("http://localhost:8080/haibaojinfu/appUserAction.app?action=getFranchiserList",
+							{userid:"402881f05233a17c015233a3d2480000"},
+							function(json){
+							  $.each(json.list, function(i, item){
+									alert(item.province)
+
+									$.each( item.list, function(i, f){
+										alert(f.name);
+									});
+							  });
+							}
+			);
+		
+		}
+
+
+		function getScript(){
+			alert(44);
+			$.getScript("test.js", function() {
+			  alert("Load was performed.");
+			});
+		}
+
+
+		$("#button4").click(function() {
+			$.post("test1", function() {
+				$("#msg").val("haha");
+			});
+		});
+
+		$("#button5").click(function() {
+			$.get("test2", function() {
+				$("#msg").val("haha");
+			});
+		});
+
+
+	
+		
+		
+	});
+
+	
+	
+</script>
+
+</body>
+</html>

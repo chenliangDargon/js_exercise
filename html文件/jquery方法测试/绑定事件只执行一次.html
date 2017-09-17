@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>绑定事件只执行一次</title>
+
+</head>
+
+<body>
+	<button id="but1">只执行一次</button>
+	
+	<button id="but2">只执行一次</button>
+
+</body>
+
+<script  src="../js/jquery-1.8.3.min.js" charset="UTF-8"></script>
+<script>
+	/**
+	 * 实现事件只绑定一次
+	 */
+	$(function(){
+		$('#but1').on('click', function(event){
+			alert($(this).text());
+			$(this).off(event);
+		});
+		
+		$('#but2').one('click', function(event){
+			alert($(this).text());
+		});
+	});
+
+	
+</script>
+</html>

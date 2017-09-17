@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>CSS选择器1</title>
+		
+		<style>
+			/*
+			 * 多类选择器
+			 * 使用多个 class 可以选择同时含有多个类名的元素，例如 .collapse.in 选择同时含有类 collapse 和 in 的元素*/
+			#div1 .collapse.in{
+				background-color: gray;
+			}
+			
+			/*
+			 * 上下文选择器
+			 * selector selector，用于选择元素内部的元素，例如 p span，选择所有属于 p 元素内部的 span 元素。
+			 */
+			#div2 p span{
+				background-color: lightgray;
+			}
+			
+			/*
+			 * 子元素选择器
+			 * selector > selector，用于选择带有特定父元素的元素，例如 p > span，选择所有父元素为 p 的 span 元素。
+			 */
+			#div3 p>span{
+				background-color: darkgray;
+			}
+			
+			/*
+			 * 相邻元素选择器
+			 * selector + selector，用于选择一个特定元素之后紧跟的元素，h2 + p，选择所有相邻 h2 元素之后的同级 p 元素。
+			 */
+			#div4 h2+p{
+				background-color: darkslategray;
+			}
+			
+			/*
+			 * 同级元素选择器
+			 * selector ~ selector，用于选择特定元素之后的同级元素，h2 ~ p，选择所有 h2 元素之后的同级 p 元素。
+			 * 同级元素选择器选择特定元素之后的所有同级元素，而相邻元素选择器只选择特定元素之后紧邻的那个元素
+			 */
+			#div5 h2~p{
+				background-color: dimgray;
+			}
+			
+			/*
+			 * 属性名选择器
+			 * [attribute]，用于选择所有带有特定属性的元素，例如 [title]，选择所有带有 title 属性的元素。
+			 */
+			#div6 [title]{
+				background-color: lightgray;
+			}
+			
+			/*
+			 * 属性值选择器
+			 * [attribute="value"]，用于选择所有带有特定属性和值的元素，例如 [title="link"]，选择所有带有 title 属性并且值为 link 的元素。
+			 */
+			#div7 [title="link"]{
+				background-color: slategray;
+			}
+			
+			/*
+			 * [attribute^="value"]，用于选择带有特定属性并且属性值是以指定字符串开头的所有元素，
+			 * 例如 a[href^="http://"]，选择所有 href 属性值以 http:// 字符串开头的 a 元素。
+			 */
+			#div7 a[href^="https://"]{
+				background-color: black;
+			}
+			
+			/*
+			 * [attribute$="value"]，用于选择带有特定属性并且属性值是以指定字符串结尾的所有元素，
+			 * 例如 img[src$=".png"]，选择所有 png 格式的 img 元素。
+			 */
+			#div7 img[src$=".png"]{
+				border-radius: 30px;
+			}
+			
+			/*
+			 * [attribute*="value"]，用于选择带有特定属性并且属性值包含指定字符串的所有元素，例如 [title*="red"]，
+			 * 选择所有带有 title 属性并且值包含 red 字符串的所有元素。
+			 */
+			#div7 a[title*="red"]{
+				font-family: "courier new";
+				color: red;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<div id="div1">
+			<div class="collapse in">会被选中</div>
+			<div class="collapse">不会被选中</div>
+			<div class="in">不会被选中</div>
+		</div>
+		
+		<div id="div2">
+			<p>
+				<span>会被选中</span>
+				<strong><span>同样会被选中</span></strong>
+			</p>
+		</div>
+		
+		<div id="div3">
+			<p>
+				<span>父元素是p会被选中</span>
+				<strong><span>父元素是strong不会被选中</span></strong>
+			</p>
+		</div>
+		
+		<div id="div4">
+			<p>2之前的不会被选中</p>
+			<h2>示例</h2>
+			<p>h2之后的会被选中</p>
+			<p>不会被选中</p>
+		</div>
+		
+		<div id="div5">
+			<p>h2之前的不会被选中</p>
+			<h2>示例</h2>
+			<p>h2之后的会被选中</p>
+			<p>会被选中</p>
+		</div>
+		
+		<div id="div6">
+			<h5 title="p1">含有title属性的会被选中</h5>
+			<h5>不会被选中</h5>
+		</div>
+		
+		<div id="div7">
+			<h5 title="link">title=link</h5>
+			<h5 title="thislink">不会被选中</h5>
+			
+			<a href="https://www.baidu.com">百度</a>
+			<a href="http://www.sina.com">新浪</a><br />
+			
+			<img src="../images/8.jpg" />
+			<img src="../images/8.png" /><br />
+			
+			<a title="red">red</a>
+			<a title="lightred">lightred</a>
+			<a title="darkred">darkred</a>
+		</div>
+		
+	</body>
+</html>

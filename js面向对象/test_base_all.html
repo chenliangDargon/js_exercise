@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../html文件/js/jquery-1.8.3.min.js"></script>
+		<script src="my_base_all.js" />
+		<script src="../js_frame/xdate/js/xdate.js"></script>
+
+	</head>
+
+	<body>
+		<script>
+			$(function() {
+
+				console.log(" ab".ltrim());
+				console.log("aaa{0}ssssssss{1}".format("参数0", "参数1"));
+				console.log("aaa{0}ssssssss{1}".format(["参数0", "参数1"]));
+				//将所有数字替换为’数字‘
+				console.log("a1b34cg5".replaceAll(/\d/, "数字"));
+
+				console.log("bbchenliang".startsWith('bb'));
+
+				console.log(1.256.round(2));
+				
+				console.log(32442.45.toUpperCase());
+			});
+		</script>
+
+	</body>
+
+</html>

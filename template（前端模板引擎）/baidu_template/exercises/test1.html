@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+
+		<script src="js/baiduTemplate.js"></script>
+	</head>
+
+	<body>
+		
+		<!--定义空白div用于存放编译后的html -->
+		<div id="result1"></div>
+		<div id="result2"></div>
+
+		<script id="test1" type="text/html">
+			<!-- 输出变量语句，输出title -->
+			<h1>title:<%=title%></h1>
+			
+			<!--
+            	描述：判断语句 if...else
+            -->
+            <% if(list.length>1){ %>
+            	<h2>输出list，共有<%= list.length %>个元素</h2>
+            	
+            	<!--
+                	描述：循环输出
+                -->
+                <%for(var i = 0; i < list.length; i++){%>
+                	<li><%=list[i]%></li>
+                <%}%>
+            <% }else{ %>
+            	<h2>没有list数据</h2>	
+            <%}%>
+		</script>
+
+		<script type="text/javascript">
+			var data = {
+				"title": '欢迎使用baiduTemplate',
+				"list": [
+					'test1:默认支持HTML转义，如输出<script>，也可以关掉，语法<:=value> 详见API',
+					'test2:',
+					'test3:',
+					'test4:list[5]未定义，模板系统会输出空'
+				]
+			};
+			
+			var data2 = {
+				"title": '测试数据2',
+				"list": [
+					'科比·布莱恩特',
+					'詹姆斯·哈登',
+					'勒布朗·詹姆斯',
+					'阿伦·艾佛森'
+				]
+			};
+			
+			//使用baidu.template命名空间
+			var bt=baidu.template;
+			
+			//可以设置分隔符
+//			bt.LEFT_DELIMITER='<!';
+//			bt.RIGHT_DELIMITER='!>';
+			
+			//最简使用方法
+			var html=bt('test1',data);
+			
+			//渲染
+			document.getElementById('result1').innerHTML=html;
+			
+			//或者可以只传入tpl，这时返回的是一个编译后的函数，可以把这个函数缓存下来，传入不同的data就可以生成不同的HTML片段
+			var fun = bt('test1');
+			var html2 = fun(data2);
+			document.getElementById('result2').innerHTML=html2;
+		</script>
+	</body>
+
+</html>

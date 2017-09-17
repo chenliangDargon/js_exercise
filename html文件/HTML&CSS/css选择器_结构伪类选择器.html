@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>结构伪类选择器</title>
+		
+		<style>
+			ul{
+				margin-top: 20px;
+			}
+			/*
+			 * :nth-child(n)，选择同级元素中的第 n 个元素，例如 ul > li:nth-child(2)：
+			 * 需要注意的是子元素的下标是从 1 开始的。除了可以指定特定的数字，也可以使用 even（偶数）, odd（奇数） 关键字
+			 * 或者使用公式，例如 ul > li:nth-child(2n+1)（n 是计数器，从 0 开始）
+			 * 
+			 * :nth-last-child(n)，同上，不过是从最后一个子元素开始计数
+			 */
+			#div1 ul > li:nth-child(2){
+				background-color: lightblue;
+			}
+			#div1 ul>li:nth-last-child(3){
+				background-color: lightgray;
+			}
+			#div1 ul>li:nth-last-child{
+				background-color: darkgreen;
+			}
+			
+			/*
+			 * :nth-of-type(n)，选择同级元素中的第 n 个同类元素，和 :nth-child 类似，例如 .box > :nth-of-type(2)
+			 */
+			#div2 .box>:nth-of-type(2){
+				background-color: darkgoldenrod;
+			}
+			
+			/*
+			 * :empty 伪类选择器
+			 * :empty，选择没有子元素的元素（包括文本节点）
+			 */
+			#div3 p:empty{
+				background-color: darkkhaki;
+			}
+			
+			/*
+			 * 否定伪类选择器
+			 * :not(selector)，选择所有不匹配选择器的元素
+			 */
+			#div4 :not(p){
+				background-color: darkmagenta;
+			}
+			
+			/*
+			 * 首字母伪元素选择器
+			 * ::first-letter，选择元素的第一个字母
+			 */
+			/* 第一个字母放大*/
+			#div5 span::first-letter{
+				font-size: 200%;
+				background-color: darkolivegreen;
+			}
+			#div5 p::first-line{
+				text-decoration: underline;
+			}	
+		
+		</style>
+	</head>
+	<body>
+		<div id="div1">
+			<ul>
+				<li>第一行</li>
+				<li>第二行</li>
+				<li>第三行</li>
+				<li>第四行</li>
+				<li>第五行</li>
+			</ul>
+		</div>
+		
+		<div id="div2">
+			<div class="box">
+				<p>第一个 p 子元素，不会被选中</p>
+				<span>第一个 span 子元素，不会被选中</span>
+				<p>第二个 p 子元素，会被选中</p>
+				<span>第二个 span 子元素，会被选中</span>
+			</div>
+		</div>
+		
+		<div id="div3">
+			<p></p>
+			<p><span>含有子元素</span></p>
+			<p>含有文本</p>
+			
+		</div>
+		
+		<div id="div4">
+			<span>被选中</span>
+			<p>不被选中</p>
+		</div>
+		
+		<div id="div5">
+			<span>This site and all of its contents are referring to AngularJS</span><br />
+			
+			<p>
+				HTML is great for declaring static documents, but it falters when we try to use it for declaring dynamic views in web-applications. 
+				AngularJS lets you extend HTML vocabulary for your application. The resulting environment is extraordinarily expressive, readable, and quick to develop.
+			</p>
+		</div>
+		
+		
+	</body>
+</html>

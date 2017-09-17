@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		
+		<button onclick="test()">TEST</button>
+	</head>
+	<body>
+		
+		<script>
+			
+			var order = function(){
+				this.pluspo = function(msg){
+					console.log("order的pluspop："+msg);
+				}
+			}
+			
+			function pop(data, fn){
+				console.log(data);
+				fn.apply(null, ["22"]);
+				
+				fn.call(null,"33");
+			}
+			
+			function test(){
+				pop("chenliang", function(data){console.log('执行了回调函数'+data);}
+					
+				)
+			}
+		</script>
+	</body>
+</html>

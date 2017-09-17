@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>jquery1</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" ;>
+
+		</style>
+
+		<script src="../js/jquery-1.8.3.min.js" charset="UTF-8"></script>
+		<script src="../js/jquery-form.js" charset="UTF-8"></script>
+
+	</head>
+
+	<body>
+
+		<form id="myform" method="post" action="http://127.0.0.1:8083/haibaojinfu/appUserAction.app?action=testService" onsubmit="return saveReport();">
+			
+			<input name="result" />
+
+			<button id="button1" type="submit">提交</button><br/>
+		</form>
+
+		<script type="text/javascript">
+			function saveReport() {
+
+				$("#myform").ajaxSubmit(function(message) {
+					debugger;
+					alert(message);
+				});
+
+				return false;
+			}
+		</script>
+
+	</body>
+
+</html>

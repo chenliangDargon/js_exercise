@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>菜鸟教程(runoob.com)</title>
+		<script src="js/jquery-1.4.3.js"></script>
+
+	</head>
+
+	<bod>
+		<h1>欢迎来到我的主页</h1>
+		<p>关闭窗口或者按F5刷新页面</p>
+
+		</body>
+
+		<script language="javascript">
+			var MSG_UNLOAD = "如果你此时离开档案系统，所做操作信息将全部丢失，是否离开?";
+			var UnloadConfirm = {};
+			//启用监听浏览器刷新、关闭的方法
+			UnloadConfirm.set = function(confirm_msg) {
+					window.onbeforeunload = function(event) {
+						event = event || window.event;
+						event.returnValue = confirm_msg;
+						debugger;
+						$.ajax({
+					     	url : '/login',
+					        type : 'post',
+					        data : {},
+					        dataType : "json",
+					        async: true,//异步
+					        success : function(){
+					        	alert("success ajax");
+					        }
+					   	});
+					}
+				}
+				//关闭监听浏览器刷新、关闭的方法
+			UnloadConfirm.clear = function() {
+				window.onbeforeunload = function() {};
+			}
+			UnloadConfirm.set(MSG_UNLOAD);
+		</script>
+
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>状态伪类选择器</title>
+		
+		<style>
+			/**
+			 * 状态伪类选择器会根据元素的特定状态选择相应的元素
+			 * :link: 		选择所有未被访问的链接
+			 * :visited 	选择所有已被访问的链接
+			 * :focus 		选择获取焦点的元素
+			 * :hover 		选择鼠标指针位于其上的元素
+			 * :active 		选择处于激活状态的元素
+			 * :disabled 	选择所有被禁用的元素，和 :enabled 相反
+			 * :checked 	选择所有已经被勾选的单选框或者复选框
+			 */
+			
+			/*
+			 * 给禁用的文本输入框一个灰色的背景。
+			 */
+			input[type="text"]:disabled{
+				background-color: #eee;
+			}
+			
+			/*
+			 * 不确定状态伪类
+			 * :indeterminate，该伪类目前有以下3种情况：
+			 * 1.选择一组单选框，其中没有任何一个单选框是 :checked 状态
+			 * 当改变一组单选框中任意一个单选框为 :checked 状态时，该伪类失效。
+			 */
+			input[type="radio"]:indeterminate{
+				outline: 1px solid red;
+			}
+			
+		</style>
+	</head>
+	<body>
+		
+		<input disabled /><br />
+		<input /><br />
+		
+		<input type="radio" name="sex" value="1"/>男
+		<input type="radio" name="sex" value="0"/>女<br />
+		
+		<input type="checkbox" name="subject" />语文<br />
+		<input type="checkbox" name="subject" />数学<br />
+		
+		<img src="../images/77.jpg" alt="我是图片" /><br />
+		<a href="https://www.baidu.com" title="百度" >百度</a>
+	</body>
+</html>

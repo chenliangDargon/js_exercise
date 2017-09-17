@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>jquery1</title>
+	  <meta http-equiv="Content-Type" content="text/html; charset=GBK";>
+	  
+	    <style>
+
+		  .doublediv { border-color:red;  background:yellow; margin:4px;}
+	</style>
+
+	<script  src="../js/jquery-1.8.3.min.js" charset="UTF-8"></script>
+
+</head>
+
+<body>
+
+	<select id="selected1">
+		<option value="1">选项1</option>
+		<option value="2">选项2</option>
+		<option value="3">选项3</option>
+		<option value="4">选项4</option>
+	</select><br/>
+
+	<select id="selected2">
+		<option value="1">选项1</option>
+		<option value="2">选项2</option>
+		<option value="3">选项3</option>
+		<option value="4">选项4</option>
+	</select><br/>
+
+	
+
+
+
+
+<!--注释-->
+
+<script type="text/javascript">
+	$(function(){
+	
+		$("#selected1").change(
+			function(){
+				$("#selected2").empty();
+				
+				
+				for(var i=1; i<=this.value; i++){
+					$("#selected2").append($('<option>').val(i).text('第'+i+'个选项'));
+				}
+				
+			}
+		);
+	
+	
+	});
+
+	
+
+
+	
+</script>
+
+</body>
+</html>

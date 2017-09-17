@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>jquery1</title>
+	  
+
+	<script  src="../js/jquery-1.8.3.min.js"></script>
+	
+	<select id="sel1">
+		<option value="-1">--请选择--</option>
+		<option value="1">苹果</option>
+		<option value="2">香蕉</option>
+	</select><br />
+	<button onclick="disabledTheSelect()">失效</button>
+	<button onclick="ableTheSelect()">生效</button>
+	<button onclick="getSelectValue()">取值</button>
+	
+	
+
+</head>
+
+<body>
+
+	<input id="test" data-staffid="" />
+
+<!--ע��-->
+
+<script type="text/javascript">
+	$(function(){
+		
+		var obj = $('#test');
+ 		obj.attr('data-staffid', 222);
+		
+	
+	
+	});
+	
+	$(function(){
+		debugger;
+		var dvalue = $('#test').data('staffid');
+	});
+	
+	function disabledTheSelect(){
+		$("#sel1").val("-1").attr("disabled","disabled");
+	}
+	
+	function ableTheSelect(){
+		$("#sel1").val("-1").attr("disabled",false);
+	}
+	
+	function getSelectValue(){
+		alert($("#sel1").val());
+	}
+
+	
+
+
+	
+</script>
+
+</body>
+</html>

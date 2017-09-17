@@ -1,0 +1,64 @@
+
+<html>
+  <head>
+    <base href="<%=basePath%>">
+    
+    <title>My JSP 'index.jsp' starting page</title>
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="expires" content="0">    
+	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+	<meta http-equiv="description" content="This is my page">
+	<!--
+	<link rel="stylesheet" type="text/css" href="styles.css">
+	-->
+	<script type="text/javascript" src="jquery-1.4.3.js"></script>
+
+	<script type="text/javascript">
+		function addLine(){
+			var $line = $("#appendline").clone();
+			$("#other_rule").append($line);
+			$("#other_rule tr:last td:not(:last) input").val("");
+			
+		}
+		
+		function deleteLine(){
+			
+			
+		}
+	</script> 
+  </head>
+  
+  <body>
+	<table border="1" cellpadding="20px" cellspacing="0" id="other_rule">
+		<tr>
+				<td>最小充值金额</td>
+				<td>最大充值金额</td>
+				<td>优惠类型</td>
+				<td>最终优惠值</td>
+				<td>
+					<input type="button" value="增加" onClick="addLine()"/>
+				</td>
+		</tr>
+        
+        <tr id="appendLine">
+        	<td><input type="text" name="minCount"/></td>
+            <td><input type="text" name="maxCount"/></td>
+            <td><input type="text" name="profitCount"/></td>
+            <td><input type="text" name="lastCount"/></td>
+            <td><input type="button" id="delete_o_rule" value="删除" onclick="deleteLine(this)"/></td>
+        
+        </tr>
+	
+	</table>
+	
+
+	<input type="button" onClick="isChecked();" value="isChecked"/><br/>
+<br/>
+	
+ 
+  </body>
+</html>
+
+
+

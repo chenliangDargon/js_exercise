@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>delegate方法测试</title>
+	</head>
+
+
+	<body>
+		<div id="div01">
+			name:<input required="true"/><br />
+			age:<input />
+		</div>
+
+	</body>
+
+	<script src="../js/jquery-1.8.3.min.js" charset="UTF-8"></script>
+	<script>
+		$(function() {
+			$.fn.extend({
+				hasProp: function(prop) {
+					if (typeof prop !== "string") return undefined;
+					var hasProp = false;
+					if (document.querySelector) {
+						var attrProp = $(this).attr(prop);
+						if (attrProp !== undefined && attrProp !== false) {
+							hasProp = true;
+						}
+					} else {
+						// IE6, IE7
+						var outer = $(this).get(0).outerHTML, part = outer.slice(0, outer.search(/\/?['"]?>(?![^<]*<['"])/));
+						hasProp = new RegExp("\\s" + prop + "\\b", "i").test(part);
+					}
+					return hasProp;
+				}
+			});
+			
+			$('#div01').delegate(':input', 'blur', function(event) {
+				debugger;
+				if($(this).hasProp("required")){
+					$(this).removeAttr("required");
+					$(this).val() && alert($(this).val());
+					$(this).attr("required", "");
+				}else{
+					$(this).val() && alert($(this).val());
+				}
+			});
+			
+			/*$("input").live('blur', function(){
+				$(this).val() && alert($(this).val());
+			});*/
+
+
+			
+		});
+	</script>
+
+</html>

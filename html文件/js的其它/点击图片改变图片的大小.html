@@ -1,0 +1,30 @@
+<html>
+  <head>
+  
+    <title>testDocument</title>
+	
+	<script type="text/javascript" src="jquery-1.4.3.js"></script>
+	<script type="text/javascript">
+		function turnBigger(x){
+			var width=x.width;
+			var height=x.height;
+		x.style.width=width*1.5;
+		x.style.height=height*1.5;
+	}
+	</script>
+
+  </head>
+  
+  <body onLoad="message();">
+  
+	<h2 id="h2">±ÍÃ‚H2</h2>
+
+	<img src="../images/8.jpg" width="300" height="200" ondblclick="turnBigger(this)" onclick="initSize(x)">
+
+
+
+  </body>
+</html>
+
+
+

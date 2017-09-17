@@ -1,0 +1,334 @@
+<!doctype html>
+<html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Theme Template for Bootstrap</title>
+    <style>
+		html, body, div, span, iframe, pre, a, img,
+		table, tr, th, td, dl, dt, dd, ol, ul, li, 
+		h1, h2, h3, h4, h5, h6, p,
+		del, font, form,input,textarea{
+			margin: 0;
+			padding: 0;
+			outline: 0;
+			list-style:none;
+			font-weight:normal;
+			text-decoration:none;
+		}
+		body{
+			font-family:arial,"microsoft yahei";
+			background-color:#f8f8f8;
+			font-size:1rem;
+			line-height: 1;
+			color: #000;
+			-webkit-user-select:none;
+			user-select:none;
+		}
+		*{
+			font-family:arial,"microsoft yahei";
+		  outline:medium;
+			box-sizing:border-box;
+		}
+    .img_box{
+    	padding: 10px;
+    	overflow: hidden;
+    }
+    .img_box > li{
+    	float: left;
+    	padding: 10px;
+    	border:solid 1px #fff;
+    }
+    .img_box > li:hover{
+    	border-color: #C9302C;
+    }
+    .img_box li img{
+    	height: 200px;
+    }
+    .chak_box{
+    	position: fixed;
+  		left: 0;
+  		top: 0;
+  		background-color: rgba(0,0,0,0.5);
+    	width: 100%;
+    	min-width: 800px;
+    	height: 100%;
+    	min-height: 600px;
+    	display: none;
+    }
+    .chak_img{
+    	position: absolute;
+    	width: 100%;
+    	padding-bottom: 66px;
+    	height: 100%;
+    }
+    .chak_img > p{
+    	position: absolute;
+    	left: 50%;
+    	top: 50%;
+    	-ms-transform: translate(-50%,-50%);
+    	-moz-transform: translate(-50%,-50%);
+    	-webkit-transform: translate(-50%,-50%);
+    	-o-transform: translate(-50%,-50%);
+    	transform: translate(-50%,-50%);
+    	width:auto;
+    	padding: 10px 20px;
+    	background-color: #eee;
+    	background-color: rgba(0,0,0,0.5);
+    	color: #fff;
+    	font-size: 20px;
+    	border-radius: 5px;
+    	display: none;
+    }
+    .chak_img > img{
+    	position: absolute;
+    	left: 50%;
+    	top: 50%;
+    	max-width: 100%;
+    	max-height: 100%;
+    	min-width: 10px;
+    	-ms-transform: translate(-50%,-50%);
+    	-moz-transform: translate(-50%,-50%);
+    	-webkit-transform: translate(-50%,-50%);
+    	-o-transform: translate(-50%,-50%);
+    	transform: translate(-50%,-50%);
+    	transform-origin: center;
+			transition: transform 60ms;
+    }
+    .chak_btn{
+    	position: absolute;
+    	width: 100%;
+    	height: 50px;
+    	bottom: 0;
+    	left: 0;
+    	text-align: center;
+    }
+    .chak_btn > button{
+    	border: solid 1px #fff;
+    	color: #fff;
+    	background-color: rgba(0,0,0,0.33);
+    	border-radius: 5px;
+    	height: 46px;
+    	padding: 0 10px 2px;
+    	font-size: 16px;
+    	margin: 0 10px;
+    	min-width: 50px;
+    }
+    </style>
+</head>
+<body>
+	<div class="img_box">
+		<li><img src="images/7.jpg"/></li>
+		<li><img src="images/8.jpg"/></li>
+		<li><img src="images/9.jpg"/></li>
+		<li><img src="images/test2.jpg"/></li>
+	</div>
+	<div class="chak_box">
+		<div class="chak_img">
+			<img draggable="false" />
+			<p>文字</p>
+		</div>
+		<div class="chak_btn">
+			<button class="prev">&lt;</button>
+			<button class="turnleft">向左转</button>
+			<button class="turnright">向右转</button>
+			<button class="next">&gt;</button>
+		</div>
+	</div>
+</body>
+<script src="js/jquery.min.js"></script>
+<script>
+	function imgdragstart(){return false;}
+	for(i in document.images)document.images[i].ondragstart=imgdragstart;
+	$(function(){
+		var this_index=0;
+		var move=false;
+		var ix_show=false;
+		
+		$(".img_box > li").on({
+			click:function(){
+				this_index=$(".img_box > li").index(this);
+				img_src=$(this).children("img").attr("src");
+				$(".chak_box").show();
+				ix_show=true;
+				$(".chak_img > img").attr("src",img_src);
+			}
+		})
+		
+		$(".prev").on({
+			click:function(){
+				if(this_index==0){
+					$(".chak_img > p").html("已经是第一张图片").show();
+					setTimeout(function(){
+						$(".chak_img > p").hide();
+					},1000)
+				}else{
+					img_src=$(".img_box > li").eq(this_index-1).children("img").attr("src");
+					this_index--;
+					$(".chak_img > img").attr("src",img_src);
+				};
+				$(".chak_img > img").css({
+					'transform':'translate(-50%,-50%)',
+					"margin-left":0,
+					"margin-top":0,
+					"max-width":"100%",
+					"max-height":"100%",
+					"width":"auto",
+				})
+			}
+		})
+		
+		$(".next").on({
+			click:function(){
+				if(this_index==$(".img_box > li").length-1){
+					$(".chak_img > p").html("已经是最后一张图片").show();
+					setTimeout(function(){
+						$(".chak_img > p").hide();
+					},1000)
+				}else{
+					img_src=$(".img_box > li").eq(this_index+1).children("img").attr("src");
+					this_index++;
+					$(".chak_img > img").attr("src",img_src);
+				};
+				$(".chak_img > img").css({
+					'transform':'translate(-50%,-50%)',
+					"margin-left":0,
+					"margin-top":0,
+					"max-width":"100%",
+					"max-height":"100%",
+					"width":"auto",
+				})
+			}
+		})
+		
+		function getmatrix(a,b,c,d,e,f){
+			console.log(0);
+			var aa=Math.round(180*Math.asin(a)/ Math.PI);  
+			var bb=Math.round(180*Math.acos(b)/ Math.PI);  
+			var cc=Math.round(180*Math.asin(c)/ Math.PI);  
+			var dd=Math.round(180*Math.acos(d)/ Math.PI);  
+			var deg=0;  
+			if(aa==bb||-aa==bb){  
+			    deg=dd;  
+			}else if(-aa+bb==180){  
+			    deg=180+cc;  
+			}else if(aa+bb==180){  
+				deg=360-cc||360-dd;  
+			}  
+			return deg>=360?0:deg;
+		}
+		
+		$(".turnleft").on({
+			click:function(){
+				var _img=$(".chak_img > img");
+		    var deg=eval('get'+_img.css('transform'));
+		    var step=90;
+		    _img.css({'transform':'translate(-50%,-50%) rotate('+(deg-step)%360+'deg)'});
+				$(this).attr({"disabled":"true"});
+				_this=$(this);
+				setTimeout(function(){
+					_this.removeAttr("disabled");
+				},60)
+			}
+		})
+		
+		$(".turnright").on({
+			click:function(){
+				var _img=$(".chak_img > img");
+		    var deg=eval('get'+_img.css('transform'));
+		    var step=90;
+		    _img.css({'transform':'translate(-50%,-50%) rotate('+(deg+step)%360+'deg)'});
+				$(this).attr({"disabled":"true"});
+				_this=$(this);
+				setTimeout(function(){
+					_this.removeAttr("disabled");
+				},60)
+			}
+		})
+		
+		$(".chak_img").on({
+			click:function(){
+				$(".chak_box").hide();
+				$(".chak_img > img").css({
+					'transform':'translate(-50%,-50%)',
+					"margin-left":0,
+					"margin-top":0,
+					"max-width":"100%",
+					"max-height":"100%",
+					"width":"auto",
+				});
+				move=false;
+				ix_show=false;
+		 }
+		});
+		
+		$(".chak_img > img").on({
+			click:function(event){
+				event.stopPropagation();
+				event.preventDefault();
+			},
+		  mousedown:function(e){
+				move=true;
+				var marginx=parseInt($(this).css("margin-left"));
+				var marginy=parseInt($(this).css("margin-top"));
+				var _x=e.pageX-marginx; 
+				var _y=e.pageY-marginy;
+		  	$(this).unbind("mousemove");
+				$(this).on({
+					mousemove:function(e){
+						if(move){ 
+							var x=e.pageX-_x;
+							var y=e.pageY-_y;
+							$(this).css({
+								"margin-top":y+"px",
+								"margin-left":x+"px"
+								});
+						} 
+					}
+				});
+			},
+			mouseup:function(e){
+				move=false;
+			},
+			mouseout:function(e){
+				move=false;
+			},
+		});
+		
+		$(document).on('mousewheel', function(event) {
+			if(ix_show){
+				$("body").css({"overflow":"hidden"});
+		    $(".chak_img > img").css({"max-width":"none","max-height":"none"});
+		    var solls=event.originalEvent.wheelDelta;
+		    var ckimg_w=parseInt($(".chak_img > img").width());
+		    if(solls>0){
+		    	ckimg_w+=25;
+		    }else{
+		    	ckimg_w-=25;
+		    };
+		    $(".chak_img > img").css({"width":ckimg_w+"px"});
+			}else{
+				$("body").css({"overflow":"auto"});
+			}
+		});
+			//ff
+		document.addEventListener("DOMMouseScroll", function (event) {
+			if(ix_show){
+				$("body").css({"overflow":"hidden"});
+		    $(".chak_img > img").css({"max-width":"none","max-height":"none"});
+		    var solls=event.detail;
+		    var ckimg_w=parseInt($(".chak_img > img").width());
+		    if(solls>0){
+		    	ckimg_w-=25;
+		    }else{
+		    	ckimg_w+=25;
+		    };
+		    $(".chak_img > img").css({"width":ckimg_w+"px"});
+			}else{
+				$("body").css({"overflow":"auto"});
+			}
+		});
+	})
+</script>
+</html>

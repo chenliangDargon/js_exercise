@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style>
+	#div1 input{ background-color:white;}
+	#div1 input.active{ background-color:yellow;}
+	#div1 div{ width:400px; height:200px;; background:#CCC; display:none;}
+</style>
+
+<script>
+	window.onload=function(){
+		var oDiv = document.getElementById("div1");
+		var aBtn = oDiv.getElementsByTagName("input");	
+		var aDiv = oDiv.getElementsByTagName("div");
+		
+		for(var i=0; i<aBtn.length; i++){
+			
+			aBtn[i].index=i;
+			
+			aBtn[i].onclick=function(){
+				for(var j=0; j<aBtn.length; j++){
+					aBtn[j].className="";
+					aDiv[j].style.display="none";
+				}
+				this.className="active";
+				aDiv[this.index].style.display="block";
+			}
+		}
+	}
+</script>
+
+</head>
+
+<body>
+
+<div id="div1">
+	<input class="active" type="button" value="手机"/>
+    <input type="button" value="水果"/>
+    <input type="button" value="汽车"/>
+    
+    <div style="display:block"/>
+    	<p>小米</p>
+        <p>华为</p>
+        <p>魅族</p>
+    </div>
+    <div/>
+    	<p>苹果</p>
+        <p>香蕉</p>
+        <p>火龙果</p>
+    </div>
+	<div/>
+    	<p>奥迪</p>
+        <p>宝马</p>
+        <p>奔驰</p>
+    </div>
+
+</div>
+</body>
+</html>

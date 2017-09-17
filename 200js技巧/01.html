@@ -1,0 +1,333 @@
+<!DOCTYPE HTML>
+<html><br>
+<head>
+<title>title</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style>
+#div1 {width:80px; height:20px; background:blue;}
+</style>
+<script src="js/jquery.min.js"></script>
+
+</head>
+<body>
+<a name="1"><strong>到了顶部了</strong></a><br/>
+
+1.文本框焦点问题
+<input type="text"  onfocus="if(value=='mm') {value=''}" onblur="if(value=='') {value='mm'}">点击时文字消失，失去焦点时文字再出现<br/>
+
+2.网页按钮的特殊颜色
+<input type=button value="郭强"  style="background-color:rgb(235,207,22)"><br/>
+
+3.鼠标移入移出时颜色变化
+<input type="submit" value="找吧" name="B1" onMouseOut=this.style.color="blue" onMouseOver=this.style.color="red"><br/>
+
+4.平面按钮
+<input type=submit value=订阅 style="border:2px solid :#666666; height:20px; width:30pt; font-size:9pt;
+BACKGROUND-COLOR: #E8E8FF; color:#666666" name="submit"><br/>
+
+5.文本框样式
+<input style="border:2px solid #666666;  font-size:9pt;  height:17px; BACKGROUND-COLOR: #F4F4FF; color:#ff6600" size="15" maxlength="5"><br/>
+
+6.平面输入框
+<input type="text" name="T1" size="20" style="border-style: solid; border-width: 3"><br/>
+
+8.使文字上下滚动<br/>
+<marquee direction=up scrollamount=1 scrolldelay=100 onmouseover='this.stop()' onmouseout='this.start()' height=100 width=100 bgcolor= #F4F4FF>
+		<div id="div1"></div>
+        测试文字
+</marquee><br/>
+
+10.可以点击文字实现radio选项的选定
+<br>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="regtype" value="A03" id="A03"><label for="A03"> 情侣 : 一次注册两个帐户</label><br>
+
+12.打印</a>打印网页
+<a href='javascript:window.print ()'>打印网页</a><br>
+
+13.线型输入框(鼠标移入框自动选中输入框内的文字)<br>
+<input type="text" name="key"  size="12" value="关键字" onFocus=this.select() onMouseOver=this.focus() class="line"/><br/>
+
+14.显示文档最后修改日期<br/>
+<script language=javascript>
+window.onload=hi("lastModify");
+function hi(str)
+{
+ document.write(document.lastModified)
+}
+</script>
+
+15.可以在鼠标移到文字上时就触发事件<br/>
+<script type="text/javascript">
+	function hello(){
+		alert("hello");	
+	}
+</script>
+
+<a href="#" onMouseOver="hello();">link</a><br/>
+
+16.可以根据网页上的选项来确定页面颜色<br/>
+<script>
+	function bgChange(selObj){
+		newColor = selObj.options[selObj.selectedIndex].text;
+		document.getElementById("div2").style.backgroundColor=newColor;
+		//document.bgColor = newColor;		将整个页面的背景颜色改变
+		newColor.selectedIndex=-1;
+	}
+</script>
+<div id="div2" style="background:green; width:100px; height:30px;">
+	<select onChange="bgChange(this);">
+    	<option>red</option>
+        <option>Orange</option>
+        <option>Indigo</option>
+        <option>yellow</option>
+        <option>pink</option>
+    </select>
+</div><br/>
+
+17.将按钮的特征改变
+<style type="text/css">
+.style1 { font-size: 12px; background: #CCCCFF; border-width: thin thin thin thin; border-color: #CCCCFF #CCCCCC #CCCCCC #CCCCFF}
+.style2 { font-size: 12px; font-weight: bold; background: #CCFFCC; border-width: thin medium medium thin; border-color: #CCFF99 #999999 #999999 #CCFF99}
+</style>
+
+本例按钮的代码如下：
+<input type="submit" name="Submit" value="提 交" onmouseover="this.className='style2'" onmouseout="this.className='style1'" class="style1"><br/>
+
+18.改变按钮的图片.
+<style type="text/css">
+.style3 { font-size: 12px; background: url(image/last.gif); border: 0px; width: 40px; height:15px}
+.style4 { font-size: 12px; font-weight: bold; background: url(image/next.gif); border: 0px 0; width:40px; height: 15px}
+</style>
+
+本例的按钮代码如下：<br/>
+<input type="submit" onmouseover="this.className='style4'"onmouseout="this.className='style3'"/><br/>
+
+22.转至目标URL<br/>
+<script>
+	function goTragetURL(){
+		window.location="http://www.baidu.com";	
+	}
+</script>
+<a onclick="goTragetURL();" href="#">转到百度首页</a><br/>
+
+24.文字标签<br/>
+<label for="AltName4"><input name="AltName" type="RADIO" tabindex="931"  id="AltName4">guoqiang99859</label><br/>
+
+25控制组件的可见性<br/>
+
+<script>
+function displayConnent(){
+	document.all.item('Layer2').style.display = "block";
+}
+function hiddenConnent(){
+	document.all.item('Layer2').style.display = "none";
+}
+</script>
+
+<div style="width:100px; height:30px; background-color:#0FF;" id="Layer2" onMouseOver="displayConnent();" onMouseOut="hiddenConnent();">none</div>
+<br/><br/>
+
+27.过2秒自动关闭页面<br/>
+<script language="JavaScript">
+window.onload=function() {
+	//setTimeout(self.close(),2000)
+}
+</script>
+
+30.点击value非空的选项时转向指定连接<br/>
+ <select onchange='if(this.value!="")window.open(this.value)' class="textinput">
+ 	<option></option>
+ 	<option selected>主办单位</option>
+    <option>-----------------</option>
+    <option value="http://www.bjd.com.cn/">北京日报</option>
+    <option value="http://www.ben.com.cn/">北京晚报</option>
+ </select><br/>
+
+32.改变文字输入框的背景颜色<br/>
+<style>
+	.input2 {background-image: url('image/background.gif'); font-size: 30px; border-top-width:2px; border-right-width: 1px;border-bottom-width: 1px; border-left-width: 2px}
+</style>
+<input name=content type=text size="47" class="input2" maxlength="50"><br/>
+
+33.改变水平线的特征<br/>
+<hr size="10" color="#C0C0C0"><br/>
+
+35.页内跳转（建立锚点）<br/>
+<a href="#1">跳到顶部</a>	<a href="#2">跳到底部</a><br/>
+
+38.将网页的按钮使能
+<SCRIPT LANGUAGE="JavaScript">
+function haha(){
+	 for(var i=0;i<document.form1.elements.length;i++){
+		  if(document.form1.elements[i].name.indexOf("bb")!=-1)
+		  document.form1.elements[i].disabled=!document.form1.elements[i].disabled;
+	 }
+}
+</SCRIPT>
+
+<form name=form1>
+	<INPUT TYPE="button" NAME="aa "  value="cindy" onclick="haha()" />
+	<INPUT TYPE="button" NAME="bb " value="guoguo">
+    <INPUT TYPE="button" NAME="bb " value="haha"/>
+    <INPUT TYPE="button" NAME="cc " value="houhouo"/>
+</form><br/>
+
+39.文字移动
+<marquee scrollamount=9 onmouseover=this.stop(); onmouseout=this.start();>移动的文字</marquee><br/>
+
+55.同时按下CTRL和Q键<br/>
+<script>
+	document.onkeydown=function(){
+		if(event.ctrlKey&&event.keyCode==81){
+			alert(1);
+		}
+	}
+</script>
+
+71.禁止选择页面上的文字来拷贝(只在某些浏览器上起作用)<br/>
+<script>
+function noEffect() {
+   with (event) {
+     returnValue = false;
+     cancelBubble = true;
+   }
+   return;
+}
+</script>
+<font onselectstart="noEffect()" oncontextmenu="noEffect()">jkgjaks尽快将高科技声光控法撒旦金沟河UI是打发两份</font><br/>
+
+79.获得当前的行是表格的第几行
+<script>
+function getrow(obj)
+{
+    if(event.srcElement.tagName=="TD"){
+    curRow=event.srcElement.parentElement;
+    alert("这是第"+(curRow.rowIndex+1)+"行");
+
+    }
+}
+</script>
+
+<table border="1" width="100%" onclick=getrow(this)>
+   <tr>
+     <td width="20%">　</td>
+     <td width="20%">　</td>
+     <td width="20%">　</td>
+     <td width="20%">　</td>
+     <td width="20%">　</td>
+   </tr>
+   <tr>
+     <td width="20%">　</td>
+     <td width="20%">　</td>
+     <td width="20%">　</td>
+     <td width="20%">　</td>
+     <td width="20%">　</td>
+   </tr>
+</table>
+
+
+81.动态的向表格中添加行
+<script>
+	function addCell(){
+		d1.insertRow().insertCell().innerHTML= '<input type="button" name="test'+d1.rows.length+'">';	
+	}
+	
+</script>
+<table id="d1" border="2"></table>
+<input type="button" onClick="addCell();" value="addCell"><br/>
+
+82.event.x,event.clientX,event.offsetX区别：
+x:设置或者是得到鼠标相对于目标事件的父元素的外边界在x坐标上的位置。 clientX:相对于客户区域的x坐标位置，不
+包括滚动条，就是正文区域。 offsetx：设置或者是得到鼠标相对于目标事件的父元素的内边界在x坐标上的位置。
+screenX:相对于用户屏幕。
+<script>
+	window.onload=function(){
+		//jQuery方式
+		$("#getXPoint").click(function(){
+				alert("event.x : " + event.x);
+				alert("event.clientX : " + event.clientX);
+				alert("event.offsetX : " + event.offsetX);
+				alert("event.screenX : " + event.screenX);
+				alert("screen.width : " + 	screen.width);	//显示屏幕分辨率
+				
+				alert("event.y : " + event.y);
+				alert("event.clientY : " + event.clientY);
+				alert("event.offsetY : " + event.offsetY);
+			});
+		//DOM方式
+		document.getElementById("getXPoint").onclick=function(){
+				alert(event.x);
+			}
+		
+	}
+</script>
+
+<div style="width:300px; height:50px; background-color:#0F0">
+	<div style="width:250px; height:10px; background-color:#0FF;"></div>
+    <div style="width:200px; height:30px; background-color:#C0C">
+        <input type="button" id="getXPoint" value="事件坐标点"/>
+    </div>
+</div>
+<br/>
+
+83.显示是鼠标按钮的哪个(鼠标左键,中键，右键分别为0,1,2)<br/>
+<input type="button" onMouseDown="alert(event.button)" value="点Mouse看看"/><br/>
+
+84.打开C盘
+<form action="file:///c|/">
+	<input type="submit" value="c:\ drive">
+</form>
+
+96.鼠标移到下拉框时自动全部打开<br/>
+<select onmouseover="javascript:this.size=this.length" onmouseout="javascript:this.size=1">
+	<option>dfgh</option>
+    <option>dfgh</option>
+    <option>dfgh</option>
+    <option>dfgh</option>
+</select><br/>
+
+106.动态改变类型<br/>
+<style>
+	.Overnone {border-width:0;background-color:orange;cursor:default;color:gold;width:115}
+	.Outnone  {border-width:0;background-color:blue;cursor:default;width:115}
+</style>
+<input class=Outnone onmouseover=this.className='Overnone' onMouseOut="this.className='Outnone'" ><br/>
+
+112.背景透明(background-color:transparent;就是把背景色设置为透明)<br/>
+<style>
+	.original{background-color:transparent; border:0;}
+	.turn112{background-color:#00F; border:2px;}
+</style>
+<input type="button" value="Button"  onMouseOver="this.className='turn112'" class="original" onMouseOut="this.className='original'"/><br/>
+
+117.交换节点(只在IE中起作用)
+<table  width=100  height=100  border=1 cellspacing="0">
+	<tr><td  id=c1>CELL_1</td></tr>
+    <tr><td  id=c2>CELL_2</td></tr>
+</table><br>
+<input  type="button"  value="swap  row"  onclick="c1.swapNode(c2)"/><br/>
+
+118.删除节点(只在IE中起作用)
+<table  width=100  height=100  cellspacing="0">
+	<tr id=trall><td  id=c1>CELL_1</td></tr>
+    <tr><td  id=c2>CELL_2</td></tr>
+</table><br>
+<input  type="button"  value="swap  row"  onclick="trall.removeNode(c1)"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br/><br/>
+<a name="2"><strong>到了底部</strong></a>
+
+
+</body>
+</html>

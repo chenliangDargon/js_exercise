@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="utf-8"> 
+		<title>BMap</title>
+        <!--下面我们添加一个meta标签，以便使您的页面更好的在移动平台上展示。 -->
+ 		<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+        
+        <!--接着我们设置样式，使地图充满整个浏览器窗口：-->
+		 <style type="text/css">  
+			 html{height:100%}  
+			 body{height:100%;margin:0px;padding:0px}  
+			 #container{height:100%}  
+         </style>
+        
+		<!--引用百度地图API文件-->
+		<script src="http://api.map.baidu.com/api?v=1.4" type="text/javascript"></script>
+        
+        <!--
+        命名空间
+			API使用BMap作为命名空间，所有类均在该命名空间之下，比如：BMap.Map、BMap.Control、BMap.Overlay。
+        -->
+        
+        <script type="text/javascript">
+			window.onload = function(){
+
+				var map = new BMap.Map("container");					//创建地图实例
+				
+				<!--创建点坐标	这里我们使用BMap命名空间下的Point类来创建一个坐标点。Point类描述了一个地理坐标点，其中116.404表示经度，39.915表示纬度。-->
+				var point = new BMap.Point(116.404, 39.915);
+				
+				<!--地图初始化	BMap.Map.centerAndZoom()方法要求设置中心点坐标和地图级别。 地图必须经过初始化才可以执行其他操作。-->			
+				map.centerAndZoom(point, 15);	
+				
+				<!--下面示例显示一个地图，等待两秒钟后，它会移动到新中心点。panTo()方法将让地图平滑移动至新中心点，如果移动距离超过了当前地图区域									大小，则地图会直跳到该点。-->	
+				window.setTimeout(function(){  
+				  map.panTo(new BMap.Point(112.572464, 37.797764));  
+				 }, 2000);
+			
+			}			
+			
+        </script>
+        
+     
+		
+	</head>
+	<body>
+		<div id="container"></div>
+  	</body>
+</html>

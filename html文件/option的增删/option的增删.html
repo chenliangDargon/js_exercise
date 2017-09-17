@@ -1,0 +1,142 @@
+
+<html>
+  <head>
+    <base href="<%=basePath%>">
+    
+    <title>My JSP 'index.jsp' starting page</title>
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="expires" content="0">    
+	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+	<meta http-equiv="description" content="This is my page">
+	<!--
+	<link rel="stylesheet" type="text/css" href="styles.css">
+	-->
+	<script type="text/javascript" src="jquery-1.4.3.js"></script>
+
+	<script type="text/javascript">
+		function alertAttr(){
+
+			$("#education").addClass("background-color", "red");	
+		}
+	
+		
+		function isSelectItemExit(objSelectId,objItemValue)  { 
+
+			//判断元素是否存在单选框中
+			var objSelect = document.getElementById(objSelectId);
+				var isExit = false;  
+				if (null != objSelect && typeof(objSelect) != "undefined") {
+					 for(var i=0;i<objSelect.options.length;i++) {  
+						 if(objSelect.options[i].value == objItemValue) {  
+								 isExit = true;  
+								 break;  
+						}  
+					 }  
+				}
+				alert("是否存在 ：" + isExit);
+				return isExit;
+		 }
+
+		//为单选框增加一个选项
+		 function addOneItemToSelect(objSelectId,objItemText,objItemValue) { 
+			 var objSelect = document.getElementById(objSelectId);
+				if (null != objSelect && typeof(objSelect) != "undefined") {
+				  //判断是否该值的item已经在select中存在
+					 if(isSelectItemExit(objSelectId,objItemValue)) {  
+							alert('该值的选项已经存在!');
+					 }else{
+							var varItem = new Option(objItemText,objItemValue);  
+							objSelect.options.add(varItem);  
+							alert("插入子选项成功 ：" + objItemText);
+					 }  
+				} 
+		}
+
+		//3.   从select选项中删除选中的项，支持多选多删
+
+	function removeSelectItemsFromSelect(objSelectId) { 
+		 var objSelect = document.getElementById(objSelectId);
+		 var delNum = 0;
+			 if (null != objSelect && typeof(objSelect) != "undefined") {
+				for(var i=0;i<objSelect.options.length;i++) {  
+					if(objSelect.options[i].selected) {  
+						objSelect.options.remove(i);  
+						delNum ++;
+						i --;
+					}  
+				}         
+			 if (delNum <= 0 ) {
+				alert('请选择你要删除的选项!');
+			 } else {
+				 alert('成功删除了'+delNum+'个选项!');
+			 }
+		} 
+	}
+
+
+ //	4.     从select选项中按指定的值删除一个Item  
+ // @param objSelectId 将要验证的目标select组件的id
+ // @param objItemValue 将要验证是否存在的值
+function removeItemFromSelectByItemValue(objSelectId,objItemValue) { 
+	 var objSelect = document.getElementById(objSelectId);
+     if (null != objSelect && typeof(objSelect) != "undefined") {
+      //判断是否存在
+       if(isSelectItemExit(objSelectId,objItemValue)) {
+         for(var i=0;i<objSelect.options.length;i++) {  
+		 	alert(objSelect.options[i].value);
+             if(objSelect.options[i].value == objItemValue) {  
+                 objSelect.options.remove(i);  
+                 break;  
+             }  
+         }         
+			 alert('成功删除!');            
+		} else {  
+			alert('不存在指定值的选项!'); 
+      }     
+    } 
+}
+
+//jQuery方式判断checkbox是否选中
+function isChecked(){
+	alert($("input[type='checkbox']").is(":checked"));
+	alert($("#gradeIsDefaultAddInput").is(":checked")); 
+	alert($("#gradeIsDefaultAddInput2").is(":checked")); 
+	
+}
+	</script> 
+  </head>
+  
+  <body>
+
+<select name="education" id="education" onChange="alertAttr();">
+		 <option value="00" id="case">--请选择--</option>
+         <option value="0" id="case">小学</option>
+         <option value="1" id="case">初中</option>
+         <option value="2" id="case">高中</option>
+         <option value="3" id="case">中专</option>
+         <option value="4" id="case">大专</option>
+         <option value="5" id="case">本科</option>
+        
+
+		<td>&nbsp;&nbsp;<input type="checkbox" title="是否默认" id="gradeIsDefaultAddInput" name="gradeisDefault"/>&nbsp;&nbsp;是否设为默认等级？</td>
+        <input type="checkbox" title="是否默认" id="gradeIsDefaultAddInput2" name="gradeisDefault"/>
+</select>
+
+
+
+<br/>
+	<input type="button" onClick="isSelectItemExit('education', '0');" value="isExist"/><br/>
+	<input type="button" onClick="addOneItemToSelect('education', '硕士', '6');" value="addOne"/><br/>
+	<input type="button" onClick="removeSelectItemsFromSelect('education');" value="removeSelected"/><br/>
+	<input type="button" onClick="removeItemFromSelectByItemValue('education', '5');" value="removeSTheOne"/><br/>
+
+	<input type="button" onClick="isChecked();" value="isChecked"/><br/>
+<br/>
+	
+ 
+  </body>
+</html>
+
+
+

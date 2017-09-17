@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>Student</title>
+
+		<script type="text/javascript">
+			var Student = {
+				name: 'Robot',
+				height: 1.2,
+				run: function() {
+					console.log(this.name + ' is running...');
+				}
+			};
+			
+			var Bird = {
+				fly:function(){
+					console.log(this.name + ' is flying');
+				}
+			};
+
+			var xiaoming = {
+				name: '小明'
+			};
+
+			xiaoming.__proto__=Student;
+			
+			console.log(xiaoming.name);
+			xiaoming.run();
+			
+			xiaoming.__proto__=Bird;
+			xiaoming.fly();
+		</script>
+	</head>
+
+	<body>
+	</body>
+
+</html>

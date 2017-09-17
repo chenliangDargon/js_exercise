@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		
+		<script>
+			var Shape_prototype = {
+				getArea : function(){
+					return "area:"+this.area;
+				}
+			};
+			
+			var Retangle_prototype = {
+				getEdge : function(){
+					return "edge:"+this.edge;
+				}
+			};
+			
+			var retangleIns = {
+				area:20,
+				edge:4
+			}
+			
+			if(Shape_prototype.__proto__==Object.prototype && Retangle_prototype.__proto__==Object.prototype&&retangleIns.__proto__==Object.prototype){
+				console.log("所有对象都继承于Object,原型链的顶端就是Object.prototype");
+			}
+			
+			//此时,retangleIns实例还没有getArea和getEdge方法,不能执行  
+			/*alert("原型链连接前,retangleIns.getArea = " + retangleIns.getArea());  
+    		alert("原型链连接前,retangleIns.getArea = " + retangleIns.getEdge());  */
+    		
+    		//模拟原型链: 将3个对象连接成一条原型链!   
+   			//Shape_prototype <---__proto__--- Retangle_prototype <---_proto__--- retangleIns
+   			Retangle_prototype.__proto__ = Shape_prototype;
+   			retangleIns.__proto__=Retangle_prototype;
+   			
+   			console.log(retangleIns.getArea());
+   			console.log(retangleIns.getEdge());
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

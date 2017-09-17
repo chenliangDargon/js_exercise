@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		
+		<script>
+			
+			/**
+			 * 新的关键字class从ES6开始正式被引入到JavaScript中。class的目的就是让定义类更简单。
+			 */
+			class Student{
+				constructor(name){
+					this.name=name;
+				}
+				
+				hello(){
+					alert("Hello, "+this.name + "!");
+				}
+			}
+			
+			var xiaoming = new Student('小明');
+			xiaoming.hello();
+			
+			
+			class PrimaryStudent extends Student{
+				constructor(name, grade){
+					super(name);	 // 记得用super调用父类的构造方法!
+					this.grade=grade;
+				}
+				myGrade(){
+					alert("I am grade "+this.grade);
+				}
+			}
+			
+			var zhaosi = new PrimaryStudent('赵四', 4);
+			zhaosi.myGrade();
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

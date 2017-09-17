@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GBK";>
+<title>A Simple eg.</title>
+<script src="../js/jquery-1.8.3.min.js"></script>
+<style type="text/css">
+html, body{
+    background-color: #666;
+}
+h1 {
+    font-size: 32px;
+    color: white;
+    text-shadow: 1px 1px 1px rgba(0,0,0,.75);
+    border-bottom: solid 1px rgba(255,255,255,.5);
+    margin-bottom: 0.75em;
+}
+h2 {
+    background: url(../images/open.png) no-repeat 0 11px;
+    padding: 10px 0 0 25px;
+    cursor: pointer;
+}
+h2.close {
+    background-image: url(../images/close.png);
+}
+p {
+    font-size: 18px;
+    color: white;
+    font-family: 'ColaborateLightRegular', Arial, sans-serif;
+    line-height: 125%;
+    margin-bottom: 10px;
+}
+</style>
+<script>
+$(document).ready(function() {
+	$('.details').hide();
+
+	$(".content h2").toggle(
+		function(){
+			$(this).next(".details").fadeIn();
+			$(this).addClass("close");
+		},
+		function(){
+			$(this).next(".details").fadeOut();
+			$(this).removeClass("close");
+		}
+	);
+}); // end ready
+</script>
+</head>
+<body>
+<body>
+<div class="header">
+    <p class="logo">Easy <i>&</i> News</p>
+</div>
+<div class="content">
+<h1>Lately News</h1>
+<h2>Warriors without Curry still beat Rockets in Game 2</h2>
+      <div class="details">
+        <p>As Stephen Curry emphatically waved his arms to ignite the crowd and coached from the bench when he could do little else, Klay Thompson and the Golden State Warriors’ supporting cast picked up the slack for their absent NBA MVP to hold off the Houston Rockets115-106 on Monday night and take a 2-0 lead in their playoff series. Thompson scored 34 points and dished out five assists for the defending champions, playing without Curry because of an injured right ankle. Curry cut short his pregame warmup routine after appearing to be in discomfort as he was shooting while putting little pressure on the tender ankle.</p>
+      </div>
+<h2>Liverpool boss Jurgen Klopp: Win over Borussia Dortmund like Istanbul 2005 final</h2>
+      <div class="details">
+        <p>The Reds, who needed to score three goals in the last 33 minutes, won 4-3 at Anfield and 5-4 on aggregate thanks to Dejan Lovren’s stoppage-time header."I reminded the players about Liverpool being 3-0 down in the Champions League final to AC Milan," he said. "I know this is a place for big football moments. It was special."Liverpool won their fifth European Cup in Istanbul in 2005 after trailing Milan by three goals at half-time.Dortmund scored through Henrikh Mkhitaryan and Pierre-Emerick Aubameyang inside the first nine minutes and, after Divock Origi pulled one back for Liverpool, Marco Reus put the German side 4-2 up on aggregate.</p>
+      </div>
+<h2>Kobe Bryant: Don’t want Jazz to take it easy at all in my final game</h2>
+      <div class="details">
+        <p>The next time Lakers icon Kobe Bryant appears on the Staples Center court, it will be for the final game of his NBA career.Has Bryant looked forward to that final game, April 13 against the Utah Jazz, and imagined what it will be like?"I try not to do it too much," Bryant said Wednesday night, "and just make yourself emotional."</p>
+      </div>
+</div>
+</body>
+</body>
+</html>

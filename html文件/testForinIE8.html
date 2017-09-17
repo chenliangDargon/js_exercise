@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<button onclick="test()">BUTTON1</button>
+		
+		<button onclick="testFor()">BUTTON2</button>
+		
+		<script>
+		
+		function test(){
+			num = 0;
+			
+			console.log(num++);
+		}
+		
+		function testFor(){
+			var offerClass = function(){
+				this.offerName = "";
+				this.offerId = "";
+				
+				this.setOfferName = function(offerName){
+					this.offerName = offerName;
+				};
+				
+				this.getOfferName = function(){
+					return this.offerName;
+				}
+				
+				this.setOfferId = function(offerId){
+					this.offerId = offerId;
+				}
+				
+				this.getOfferId = function(){
+					return this.offerId;
+				}
+			}
+			
+			var offer = new offerClass();
+			
+			offer.setOfferName("天翼5G");
+			offer.setOfferId("5002");
+			
+			var offers = [];
+			offers.push(offer);
+			offers.push(offer);
+			for(var index in offers){
+				console.log(offers[index].getOfferName());
+			}
+			
+		}
+		
+			
+			
+		</script>
+	</body>
+</html>

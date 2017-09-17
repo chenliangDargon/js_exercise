@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="utf-8"> 
+		<title>BMap</title>
+		<!--1.引入BMap的js
+        	2.如示例new Bap, 设置中心点, 设置视图范围, 设置滚轮控制缩放等属性
+        -->
+        
+        
+		<script src="http://api.map.baidu.com/api?v=1.4" type="text/javascript"></script>
+        <script type="text/javascript">
+		
+			window.onload =	function initialize() {
+			  var mp = new BMap.Map('map');
+			  var point = new BMap.Point(112.572464, 37.797764);
+			  mp.centerAndZoom(point, 15);
+			  mp.enableScrollWheelZoom();	//滚轮可控制地图缩放
+			  
+			  
+			  
+			// 创建控件实例  
+			  var myZoomCtrl = new ZoomControl();  
+			  // 添加到地图当中  
+			  mp.addControl(myZoomCtrl);
+			}
+			
+		 
+			 
+		</script>
+		
+		
+		<!-- 自定义控件
+				百度地图API允许您通过继承Control来创建自定义地图控件。	
+				要创建可用的自定义控件，您需要做以下工作：
+				1.定义一个自定义控件的构造函数。
+				2.设置自定义控件构造函数的prototype属性为Control的实例，以便继承控件基类。
+				3.实现initialize()方法并提供defaultAnchor和defaultOffset属性。
+				定义构造函数并继承Control
+				首先您需要定义自定义控件的构造函数，并在构造函数中提供defaultAnchor和defaultOffset两个属性，以便API正确定位控件位置，
+				接着让其继承于Control。在下面的示例中我们定义一个名为ZoomControl的控件，
+				每一次点击将地图放大两个级别。它具有文本标识，而不是平移缩放控件中使用的图形图标。
+		 -->
+		 <script type="text/javascript">
+		 
+			// 定义一个控件类，即function  
+			 function ZoomControl(){  
+			     // 设置默认停靠位置和偏移量  
+			     this.defaultAnchor = BMAP_ANCHOR_TOP_LEFT;  
+			     this.defaultOffset = new BMap.Size(10, 10);  
+			 }  
+			 // 通过JavaScript的prototype属性继承于BMap.Control  
+			 ZoomControl.prototype = new BMap.Control();  
+		 
+		 
+				// 自定义控件必须实现initialize方法，并且将控件的DOM元素返回  
+				// 在本方法中创建个div元素作为控件的容器，并将其添加到地图容器中  
+				ZoomControl.prototype.initialize = function(map){  
+				 // 创建一个DOM元素  
+				 var div = document.createElement("div");  
+				 // 添加文字说明  
+				 div.appendChild(document.createTextNode("放大2级"));  
+				 // 设置样式  
+				 div.style.cursor = "pointer";  
+				 div.style.border = "1px solid gray";  
+				 div.style.backgroundColor = "white";  
+				 // 绑定事件，点击一次放大两级  
+				 div.onclick = function(e){
+				  map.zoomTo(map.getZoom() + 2);  
+				 }  
+				 // 添加DOM元素到地图中  
+				 map.getContainer().appendChild(div);  
+				 // 将DOM元素返回  
+				 return div;  
+				 }  
+		 
+		 </script>
+		
+	</head>
+		<body>
+  	
+		<div id="map" style="width:900px;height:600px"></div>
+
+		
+  		</body>
+</html>

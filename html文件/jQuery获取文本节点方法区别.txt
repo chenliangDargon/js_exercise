@@ -1,0 +1,50 @@
+在jquery中val,text,html都能取到值,或加一个参数来赋值,那么它们有些什么区别?下面我们来举例说明： 
+首先，html属性中有两个方法，一个有参，一个无参 
+1. 无参html（）：取得第一个匹配元素的html内容。这个函数不能用于XML文档。但可以用于XHTML文档，返回的是一个String 
+例子： 
+html页面代码：<div><p>Hello</p></div> 
+jquery代码：$("div").html(); 
+结果：Hello 
+2.有参html（val）：设置每一个匹配元素的html内容。这个函数不能用于XML文档。但可以用于XHTML文档。返回一个jquery对象 
+html页面代码：<div></div> 
+jquery代码：$("div").html("<p>Nice to meet you</p>"); 
+结果：[ <div><p> Nice to meet you</p></div> ] 
+
+其次，text属性中有两个方法，一个有参，一个无参 
+1. 无参text（）：取得所有匹配元素的内容。结果是由所有匹配元素包含的文本内容组合起来的文本。返回的是一个String 
+例子： 
+html页面代码：<p><b>Hello</b> fine</p> 
+<p>Thank you!</p> 
+jquery代码：$("p").text(); 
+结果：HellofineThankyou! 
+
+2.有参text（val）：设置所有匹配元素的文本内容, 与 html() 类似, 但将编码 HTML (将 "<" 和 ">" 替换成相应的HTML实体).返回一个jquery对象 
+html页面代码：<p>Test Paragraph.</p> 
+jquery代码：$("p").text("<b>Some</b> new text."); 
+结果:[ <p><b>Some</b> new text.</p> ] 
+
+最后，val（）属性中也有两个方法，一个有参，一个无参。 
+1.无参val（）：获得第一个匹配元素的当前值。在 jQuery 1.2 中,可以返回任意元素的值了。包括select。如果多选，将返回一个数组，其包含所选的值。 
+返回的是一个String、 array 
+例子： 
+html页面代码 ： 
+
+<p></p><br/> 
+<select id="single"> 
+	<option>Single</option> 
+	<option>Single2</option> 
+</select> 
+
+<select id="multiple" multiple="multiple"> 
+	<option selected="selected">Multiple</option> 
+	<option>Multiple2</option> 
+	<option selected="selected">Multiple3</option> 
+</select> 
+
+jquery代码：$("p").append( "<b>Single:</b> " + $("#single").val() + " <b>Multiple:</b> " + $("#multiple").val().join(", ")); 
+结果:[ <p><b>Single:</b>Single<b>Multiple:</b>Multiple, Multiple3</p>] 
+2.有参val（val）：设置每一个匹配元素的值。在 jQuery 1.2, 这也可以为check,select,radio元件赋值,返回一个jquery对象 
+html页面代码： 
+<input type="text"/> 
+jquery代码：$("input").val("hello world!"); 
+结果：hello world!

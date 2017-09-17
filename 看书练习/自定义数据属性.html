@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>自定义数据属性</title>
+		<!--
+		HTML5中我们可以使用data-前缀设置我们需要的自定义属性，来进行一些数据的存放,
+		添加了自定义属性之后就可以通过元素的dataset属性访问自定义属性的值了		
+		-->
+		
+		<script>
+			window.onload=function(){
+				
+				var div = document.getElementById('myDiv');
+				var mydataset=div.dataset;
+				
+				if(!div.dataset){
+					alert('浏览器不支持dataset');
+				}
+				
+				//在dataset中取值时，全部转成小写形式
+				var appId = mydataset.appid;
+				var myName = mydataset.myname;
+				//带连字符连接的名称在使用的时候需要命名驼峰化，即大小写组合书写
+				var schoole = mydataset.middleSchoole;
+				
+				console.log('appId:'+appId);console.log('myName:'+myName);console.log('schoole:'+schoole);
+				
+				//给自定义属性设置值
+				div.dataset.age=28;
+				
+				//删除自定义属属性和值
+				delete div.dataset.appid;
+			}
+		</script>
+	</head>
+	<body>
+		
+		<div id="myDiv" data-appid="12345" data-myName="Mickle Jordan" data-middle-schoole="middle schoole">myDIV</div>
+	</body>
+</html>

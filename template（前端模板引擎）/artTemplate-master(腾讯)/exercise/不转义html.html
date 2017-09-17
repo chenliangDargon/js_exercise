@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>不转义html</title>
+		
+		<script src="template.js"></script>
+	</head>
+	<body>
+		
+		<div id="content"></div>
+		
+		<script id="testtemplate" type="text/html">
+			<p>不转义：{{#value}}</p>
+			
+			<p>默认转义：{{value}}</p>
+		</script>
+		
+		<script type="text/javascript">
+			var data = {
+		        value: '<span style="color:#F00">hello world!</span>'
+		    };
+		    
+		    var html = template('testtemplate', data);
+		    
+		    document.getElementById('content').innerHTML=html;
+			
+		</script>
+	</body>
+</html>
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+</html>

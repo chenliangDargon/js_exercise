@@ -1,0 +1,296 @@
+<!DOCTYPE HTML>
+<html><br>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>js技巧二</title>
+
+<script src="js/jquery.min.js"></script>
+
+</head>
+<body>
+
+164.定义方法(形式二)<br/>
+<input type="button" id="button1" value="new Function()" onClick="new Function(alert(11))"/><br/>
+
+165.将数字转化为人民币大写形式><br/>
+<script type="text/javascript">
+	function calChieseMoney(currencyDigits) {
+// Constants:
+ var MAXIMUM_NUMBER = 99999999999.99;
+ // Predefine the radix characters and currency symbols for output:
+ var CN_ZERO = "零";
+ var CN_ONE = "壹";
+ var CN_TWO = "贰";
+ var CN_THREE = "叁";
+ var CN_FOUR = "肆";
+ var CN_FIVE = "伍";
+ var CN_SIX = "陆";
+ var CN_SEVEN = "柒";
+ var CN_EIGHT = "捌";
+ var CN_NINE = "玖";
+ var CN_TEN = "拾";
+ var CN_HUNDRED = "佰";
+ var CN_THOUSAND = "仟";
+ var CN_TEN_THOUSAND = "万";
+ var CN_HUNDRED_MILLION = "亿";
+ var CN_SYMBOL = "人民币";
+ var CN_DOLLAR = "元";
+ var CN_TEN_CENT = "角";
+ var CN_CENT = "分";
+ var CN_INTEGER = "整";
+ 
+// Variables:
+ var integral; // Represent integral part of digit number.
+ var decimal; // Represent decimal part of digit number.
+ var outputCharacters; // The output result.
+ var parts;
+ var digits, radices, bigRadices, decimals;
+ var zeroCount;
+ var i, p, d;
+ var quotient, modulus;
+ 
+// Validate input string:
+ currencyDigits = currencyDigits.toString();
+ if (currencyDigits == "") {
+  alert("Empty input!");
+  return "";
+ }
+ if (currencyDigits.match(/[^,.\d]/) != null) {
+  alert("Invalid characters in the input string!");
+  return "";
+ }
+ if ((currencyDigits).match(/^((\d{1,3}(,\d{3})*(.((\d{3},)*\d{1,3}))?)|(\d+(.\d+)?))$/) == null) {
+  alert("Illegal format of digit number!");
+  return "";
+ }
+ 
+// Normalize the format of input digits:
+ currencyDigits = currencyDigits.replace(/,/g, ""); // Remove comma delimiters.
+ currencyDigits = currencyDigits.replace(/^0+/, ""); // Trim zeros at the beginning.
+ // Assert the number is not greater than the maximum number.
+ if (Number(currencyDigits) > MAXIMUM_NUMBER) {
+  alert("Too large a number to convert!");
+  return "";
+ }
+ 
+// Process the coversion from currency digits to characters:
+ // Separate integral and decimal parts before processing coversion:
+ parts = currencyDigits.split(".");
+ if (parts.length > 1) {
+  integral = parts[0];
+  decimal = parts[1];
+  // Cut down redundant decimal digits that are after the second.
+  decimal = decimal.substr(0, 2);
+ }
+ else {
+  integral = parts[0];
+  decimal = "";
+ }
+ // Prepare the characters corresponding to the digits:
+ digits = new Array(CN_ZERO, CN_ONE, CN_TWO, CN_THREE, CN_FOUR, CN_FIVE, CN_SIX, CN_SEVEN, CN_EIGHT,CN_NINE);
+ radices = new Array("", CN_TEN, CN_HUNDRED, CN_THOUSAND);
+ bigRadices = new Array("", CN_TEN_THOUSAND, CN_HUNDRED_MILLION);
+ decimals = new Array(CN_TEN_CENT, CN_CENT);
+ // Start processing:
+ outputCharacters = "";
+ // Process integral part if it is larger than 0:
+ if (Number(integral) > 0) {
+  zeroCount = 0;
+  for (i = 0; i < integral.length; i++) {
+   p = integral.length - i - 1;
+   d = integral.substr(i, 1);
+   quotient = p / 4;
+   modulus = p % 4;
+   if (d == "0") {
+    zeroCount++;
+   }
+   else {
+    if (zeroCount > 0)
+    {
+     outputCharacters += digits[0];
+    }
+    zeroCount = 0;
+    outputCharacters += digits[Number(d)] + radices[modulus];
+   }
+   if (modulus == 0 && zeroCount < 4) {
+    outputCharacters += bigRadices[quotient];
+   }
+  }
+  outputCharacters += CN_DOLLAR;
+ }
+ // Process decimal part if there is:
+ if (decimal != "") {
+  for (i = 0; i < decimal.length; i++) {
+   d = decimal.substr(i, 1);
+   if (d != "0") {
+    outputCharacters += digits[Number(d)] + decimals[i];
+   }
+  }
+ }
+ // Confirm and return the final output string:
+ if (outputCharacters == "") {
+  outputCharacters = CN_ZERO + CN_DOLLAR;
+ }
+ if (decimal == "") {
+  outputCharacters += CN_INTEGER;
+ }
+ outputCharacters = CN_SYMBOL + outputCharacters;
+ alert(outputCharacters);
+ return outputCharacters;
+}//
+</script>
+<input name="money" onBlur="calChieseMoney(this.value);"/><br/>
+
+170.正则表达式<br/><br>
+<script>
+function regHanZi(hanzi){
+	var reg=/^[\u4e00-\u9fa5]$/;
+	alert(hanzi.match(reg));
+	alert(reg.test(hanzi));
+	alert(reg.exec(hanzi));
+}
+
+function trimStr(str){
+	//自定义String类型数据的方法
+	String.prototype.mySubString=function(){
+				return this.substring(1,2);
+			};
+	alert(str.length);	
+	alert(str.trim().length);	
+	alert(str.mySubString());
+}
+
+//对于IE9之前的浏览器,并没有定义trim方法,需要自己通过正则表达式写类似方法
+function myTrim(){
+	var str = document.getElementById("myTrim").value;
+	var result = str.replace(/\s/g, "");
+	alert(result);
+	alert(result.length);
+	return result;
+}
+
+function LTrim(){
+	var str = document.getElementById("myTrim").value;
+	var result = str.replace(/^\s*/, "");	
+	alert(result.length);
+	alert(result);
+}
+function RTrim(){
+	var str = document.getElementById("myTrim").value;
+	var result = str.replace(/\s*$/, "");	
+	alert(result.length);
+	alert(result);
+}
+
+function BothTrim(){
+	var str = document.getElementById("myTrim").value;
+	var result = str.replace(/(^\s*)|(\s*$)/g, "");	
+	alert(result.length);
+	alert(result);
+}
+</script>
+
+<input name="hanzi" onBlur="regHanZi(this.value)"/>(匹配中文字符的正则表达式： [\u4e00-\u9fa5])<br>
+<input name="trim" onBlur="trimStr(this.value)"/>(自定义原型方法)<br>
+
+<input name="myTrim" id="myTrim"/>(利用正则表达式实现trim方法)
+<input type="button" value="原始大小"  onClick="new Function(alert($('#myTrim').val().length))"/>
+<input type="button" value="去所有空格"  onClick="myTrim()"/>
+<input type="button" value="去左空格"  onClick="LTrim()"/>
+<input type="button" value="去右空格"  onClick="RTrim()"/>
+<input type="button" value="去左右两端空格"  onClick="BothTrim()"/><br>
+用正则表达式限制只能输入中文：<input type="text" onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')"/><br>
+<!--^放在[]里面表示“非”或“排除”的意思，常常用来剔除某个字符-->
+只能输入数字的录入框：<input type="text" onKeyUp="value=value.replace(/\D/g,'')"/><br>
+
+208.进行页面放大<br>
+<style>
+	#changeZoom{width:300px; height:100px; background-image:url(image/cb_head02.jpg);}
+</style>
+<div id="changeZoom" onmouseover="this.style.zoom='200%'" onmouseout="this.style.zoom='normal'"></div>
+
+221.能输入的下拉框
+<input name="Department1" id="Department1">
+
+<select  style="width:150;margin-left:-130" onChange="Department1.value=value">
+    <option value=""></option>
+    <option value="asdfasfadf">asdfasfadf</option>
+    <option value="546546">546546</option>
+</select><br>
+
+223.显示一个对象的全部的属性和属性的值<br>
+<script>
+var a=new Object();
+a.name='a1';
+a.mail='mail'
+for(var p in a)
+{
+ 	//alert(p+"="+a[p])
+}
+</script>
+
+225.复制粘贴<br>
+<input type="text" name='a1'><input type="button" value='复制粘贴' onclick="haha()">
+<div id="aa"></div>
+<SCRIPT LANGUAGE="JavaScript">
+function haha()
+{
+	if(window.clipboardData){
+		window.clipboardData.clearData();
+		window.clipboardData.setData("Text",a1.value);
+		if(clipboardData.setData("Text",a1.value)){
+			alert("复制成功"); 
+		}else{
+			alert("复制失败"); 
+		}
+		aa.innerText=clipboardData.getData("Text");
+	}else{
+		alert("非IE不支持");	
+	}
+}
+</SCRIPT>
+
+227.图片加载失败时重新加载图片<br>
+<img src="image/images/nexts.gif" onerror="this.src='image/images/next.gif'"><br>
+
+230.在页面上画点<br>
+<script>
+	function drawLine(){
+		//画坐标轴X,Y
+		for(var i =0; i < 1200; i++){
+			a(i, 0, '#FFF');	
+		}
+		for(var i = -120; i < 120; i++){
+			a(0, i, '#FFF');
+		}
+		
+		//画箭头
+		for(var i=20; i > 0; i--){
+			a(1200-i,i*0.2, '#FFF');
+			a(1200-i,-i*0.2, '#FFF');
+			
+			a(i*0.2,i-120, '#FFF' );
+			a(-i*0.2,i-120, '#FFF' );
+		}
+		
+		
+		//画正弦曲线
+		for(var i = 0; i < 1000; i++){
+			x=i/100;
+			y=Math.sin(x);
+			a(x*100, y*100, '#00F');
+		}
+		
+	}
+	function a(x,y,color)
+	{
+	
+document.write("<img border='1' style='position:absolute; left:"+(x+20)+"; top:"+(y+200)+";background-color:"+color+"' width=1 height=1>")
+	}
+</script>
+<input type="button" onclick="drawLine()" value="划线"/><br>
+<div id="zhengxianQX" name="zhengxianQX">
+</div>
+
+</body>
+</html>

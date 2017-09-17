@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>jquery1</title>
+	  <meta http-equiv="Content-Type" content="text/html; charset=GBK";>
+	  
+	
+</head>
+
+<body>
+<div id="diva" class="divclass">DIV1<div>
+<div id="diva" class="divclass">DIV2<div>
+
+<button onclick="testdiv()">test</button>
+
+<script  src="../js/jquery-1.8.3.min.js" charset="UTF-8"></script>
+
+<!--注释-->
+
+<!--这个简单的例子说明了：
+jQuery方法用id获取对象只能获取到一个（如有页面中有多个这样重复的id元素），
+但是用class获取对象，能获取到相同class的多个对象-->
+
+<script type="text/javascript">
+function	testdiv(){
+	var iddiv = $('#diva');
+	var classdiv = $('.divclass');
+
+	alert(iddiv.length);	//1
+	alert(classdiv.length);	//2
+
+	classdiv.hide();
+}
+	
+</script>
+
+</body>
+</html>

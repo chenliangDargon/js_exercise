@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>delegate方法测试</title>
+	</head>
+	<!--
+	jQueryObject.delegate( selector , events [, data ], handler )
+	
+	参数说明：
+	selector	String类型一个jQuery选择器，用于指定哪些后代元素可以触发绑定的事件。如果该参数为null或被省略，则表示当前元素自身绑定事件(实际触发者也可能是后代元素，只要事件流能到达当前元素即可)。
+	events	String类型一个或多个用空格分隔的事件类型和可选的命名空间，例如"click"、"focus click"、"keydown.myPlugin"。
+	data	可选/任意类型触发事件时，需要通过event.data传递给事件处理函数的任意数据。
+	handler	Functidelegate类型指定的事件处理函数。
+	eventsMap	Object类型一个Object对象，其每个属性对应事件类型和可选的命名空间(参数events)，属性值对应绑定的事件处理函数(参数handler)。
+	
+	重要说明：delegate()函数并不是为当前jQuery对象匹配的元素绑定事件处理函数，
+而是为它们的后代元素中符合选择器selector参数的元素绑定事件处理函数。delegate()函数并不是直接为这些后代元素挨个绑定事件，
+而是"委托"给当前jQuery对象的匹配元素来处理。由于DOM 2级的事件流机制，当后代元素selector触发事件时，
+该事件会在事件冒泡中传递给其所有的祖辈元素，当事件流传递到当前匹配元素时，jQuery会判断是哪个后代元素触发了事件，
+如果该元素符合选择器selector，jQuery就会捕获该事件，从而执行绑定的事件处理函数。-->
+
+	<body>
+		<button id="but1">button1</button>
+
+		<p id="n5">Google</p>
+
+	</body>
+
+	<script src="../js/jquery-1.8.3.min.js" charset="UTF-8"></script>
+	<script>
+		$(function() {
+			$('body').delegate('button', 'click', function(event) {
+				alert($(this).text());
+			});
+
+			/*后添加的button也可以触发上述click事件，因为它也是body中的button元素*/
+			$("body").append('<button>button2</button>');
+
+			/*此外，我们还可以同时绑定多个事件，并为事件处理函数传递一些附加的数据，
+			 * 我们可以通过jQuery为事件处理函数传入的参数event(Event事件对象)来进行处理：*/
+
+			$('body').delegate('#n5', 'mouseenter mouseleave', {
+				"name": "chenliang"
+			}, function(event) {
+				$me = $(this);
+				var param = event.data;
+				if(event.type === 'mouseenter') {
+					$me.html("你好：" + param.name);
+				} else if(event.type === 'mouseleave') {
+					$me.html("再见：" + param.name);
+
+				}
+			});
+		});
+	</script>
+
+</html>

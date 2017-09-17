@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="utf-8"> 
+		<title>BMap</title>
+		<!--1.引入BMap的js
+        	2.如示例new Bap, 设置中心点, 设置视图范围, 设置滚轮控制缩放等属性
+        -->
+        
+        <!--
+            百度地图上负责与地图交互的UI元素称为控件。百度地图API中提供了丰富的控件，您还可以通过Control类来实现自定义控件。
+            地图API中提供的控件有：
+            Control：控件的抽象基类，所有控件均继承此类的方法、属性。通过此类您可实现自定义控件。
+            NavigationControl：地图平移缩放控件，PC端默认位于地图左上方，它包含控制地图的平移和缩放的功能。移动端提供缩放控件，默认位于地图右下方。
+            OverviewMapControl：缩略地图控件，默认位于地图右下方，是一个可折叠的缩略地图。
+            ScaleControl：比例尺控件，默认位于地图左下方，显示地图的比例关系。
+            MapTypeControl：地图类型控件，默认位于地图右上方。
+            CopyrightControl：版权控件，默认位于地图左下方。
+            GeolocationControl：定位控件，针对移动端开发，默认位于地图左下方。
+        -->
+		<script src="http://api.map.baidu.com/api?v=1.4" type="text/javascript"></script>
+        <script type="text/javascript">
+		
+			window.onload =	function initialize() {
+			  var mp = new BMap.Map('map');
+			  var point = new BMap.Point(112.572464, 37.797764);
+			  mp.centerAndZoom(point, 15);
+			  mp.enableScrollWheelZoom();	//滚轮可控制地图缩放
+			  
+			  <!--可以使用Map.addControl()方法向地图添加控件。在此之前地图需要进行初始化。例如，要将标准地图控件添加到地图中，可在代码中添加如下内容：-->
+			 // mp.addControl(new BMap.NavigationControl());  
+			  
+			  <!--可以向地图添加多个控件。在本例中我们向地图添加一个平移缩放控件、一个比例尺控件和一个缩略图控件。在地图中添加控件后，它们即刻生效。-->
+			 mp.addControl(new BMap.ScaleControl());  		 //显示比例尺
+			 mp.addControl(new BMap.OverviewMapControl());   //	显示缩略图
+			 mp.addControl(new BMap.MapTypeControl()); 			//显示地图类型控件
+			 
+			 <!--控件停靠位置anchor表示控件的停靠位置，即控件停靠在地图的哪个角。当地图尺寸发生变化时，控件会根据停靠位置的不同来调整自己的位置。anchor允许的值为：BMAP_ANCHOR_TOP_LEFT 表示控件定位于地图的左上角。BMAP_ANCHOR_TOP_RIGHT 表示控件定位于地图的右上角。BMAP_ANCHOR_BOTTOM_LEFT 表示控件定位于地图的左下角。BMAP_ANCHOR_BOTTOM_RIGHT 表示控件定位于地图的右下角。-->
+			 
+			 <!--本示例将比例尺放置在地图的右下角-->
+			 var opts = {offset: new BMap.Size(800, 5)}  
+			 mp.addControl(new BMap.ScaleControl(opts));  
+			 
+			 <!--地图API的控件提供了丰富的配置参数，您可参考API文档来修改它们以便得到符合要求的控件外观。例如，NavigationControl控件就提供了如下类型：BMAP_NAVIGATION_CONTROL_LARGE 表示显示完整的平移缩放控件。BMAP_NAVIGATION_CONTROL_SMALL 表示显示小型的平移缩放控件。BMAP_NAVIGATION_CONTROL_PAN 表示只显示控件的平移部分功能。BMAP_NAVIGATION_CONTROL_ZOOM 表示只显示控件的缩放部分功能。-->
+			 
+			 var opts = {type: BMAP_NAVIGATION_CONTROL_ZOOM}  
+			 mp.addControl(new BMap.NavigationControl(opts));  
+			 
+			}
+		</script>
+		
+	</head>
+		<body>
+  	
+		<div id="map" style="width:900px;height:600px"></div>
+
+		
+  		</body>
+</html>

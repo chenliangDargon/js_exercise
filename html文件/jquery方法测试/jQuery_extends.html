@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>jQuery插件</title>
+
+		<style>
+			div {
+				width: 500px;
+				height: 50px;
+				margin: 20px;
+			}
+		</style>
+
+		<!--<script src="../js/jquery-1.8.3.min.js" charset="UTF-8"></script>-->
+		<script src="../js/jquery3.1.1/jquery-3.1.1.js"></script>
+		<script src="jquery_extends/jQuery_extends.js"></script>
+
+		<script>
+			
+			function changeStyle() {
+				$.fn.highlight.defaults.color = '#659f13';
+				$.fn.highlight.defaults.backgroundColor = '#f2fae3';
+				$('div').highlight();
+			}
+			
+			var index = 0;
+			
+			//轮流调用
+			function turnRed(x){
+				if(index++ % 2 == 1){
+					$(x).turnRed();
+				}else{
+					$(x).turnGreen();
+				}
+			}
+			
+			window.onload=function(){
+				$('#test-external a').external();
+			};
+		</script>
+	</head>
+
+	<body>
+
+		<div id="div1"></div>
+		<div id="div2"></div>
+
+		<button onclick="changeStyle()">调用自定义jQuery插件方法改变样式</button>
+		
+		<div>
+			<span onclick="turnRed(this)">fajkfdas发大水</span>
+		</div>
+
+		<!--
+        	描述：针对特定元素的扩展
+        -->
+		<div id="test-external">
+			<p>如何学习
+				<a href="http://jquery.com">jQuery</a>？</p>
+			<p>首先，你要学习
+				<a href="/wiki/001434446689867b27157e896e74d51a89c25cc8b43bdb3000">JavaScript</a>，并了解基本的
+				<a href="https://developer.mozilla.org/en-US/docs/Web/HTML">HTML</a>。</p>
+		</div>
+	</body>
+
+</html>

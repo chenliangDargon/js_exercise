@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>利用JSONP技术实现跨域，</title>
+		
+		<script>
+			
+			/**
+			 * 通过查询地理位置服务来来显示你的ip地址和位置信息
+			 * @param {Object} response
+			 */
+			function handleResponse(response){
+				console.log(response.ip);
+				alert('your are at ip address:'+response.ip + ", which is in the "+response.city + ", "+response.region_name);
+			}
+			
+			window.onload = function(){
+				var script = document.createElement('script')
+				script.src="http://freegeoip.net/json/?callback=handleResponse";
+				document.body.insertBefore(script, document.body.firstChild);
+			}
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

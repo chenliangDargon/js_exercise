@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Hello, World</title>
+<style type="text/css">
+html {
+    height: 100%;
+}
+ 
+body {
+    height: 100%;
+    margin: 0px;
+    padding: 0px
+}
+ 
+#container { 
+    height: 93.8%;
+    width: 100%
+}
+</style>
+<!-- 加载新浪检测用户位置IP API -->
+<script
+    src="http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js"
+    type="text/javascript"></script>
+<!--加载百度地图API JS库-->
+<script type="text/javascript"
+    src="http://api.map.baidu.com/api?v=1.5&ak=4095d36deb0128e339ec5c9e2c533a21&services=true"></script>
+<!-- 加载百度地图鼠标绘图工具类库-->
+<script type="text/javascript"
+    src="http://api.map.baidu.com/library/DistanceTool/1.2/src/DistanceTool_min.js"></script>
+<script type="text/javascript">
+    var e1;
+    var e2;
+    var startSelect = false;
+    var endSelect = false;
+    var flag=false;
+    var souFlag=false;
+    var icon;
+    var mkr;
+    var icon02;
+    var mkr02;
+    var drive;
+    //自定义起点标注
+    function start(e) {
+        icon = new BMap.Icon('startPoint.jpg', new BMap.Size(29, 30));
+        mkr = new BMap.Marker(e, {
+            icon : icon
+        });
+    }
+    //自定义终点标注
+    function end(e) {
+        icon02 = new BMap.Icon('endPoint.jpg', new BMap.Size(29, 30));
+        mkr02 = new BMap.Marker(e, {
+            icon : icon02
+        });
+    }
+    /*初始化地图*/
+    function initialize() {
+        map = new BMap.Map("container");
+        map.setCenter(remote_ip_info["city"]);
+        map.centerAndZoom(map.getCenter(), 12);//必须初始化才能进行其他操作
+        var traffic = new BMap.TrafficLayer();  
+        map.addTileLayer(traffic);  
+        mapSetting(map);
+        var menu = new BMap.ContextMenu();
+        var txtMenuItem = [ {
+            text : '以此为起点',
+            callback : function(e) {
+                start(e);//调用自定义起点标注方法
+                if (startSelect == false) {//地图上没有设置起点
+                    map.addOverlay(mkr);
+                    startSelect = true;//标记此时有起点
+                } else if (startSelect == true)//地图上已有起点
+                {
+                    if (endSelect == false)//地图上没有终点
+                    {
+                        map.clearOverlays();
+                        map.addOverlay(mkr);
+                    }
+                }
+                e1 = mkr.getPosition();
+            }
+        }, {
+            text : '以此为终点',
+            callback : function(e) {
+                end(e);//调用自定义终点标注方法
+                if (endSelect == false) {//地图上没有设置终点
+                    map.addOverlay(mkr02);
+                    endSelect = true;//标记此时有终点
+                } else if (endSelect == true)//地图上已有终点
+                {
+                    if (startSelect == false)//地图上没有起点
+                    {
+                        map.clearOverlays();
+                        map.addOverlay(mkr02);
+                    }
+                }
+                e2 = mkr02.getPosition();
+            }
+        }, {
+            text : '距离的测量',
+            callback : function() {
+                map.clearOverlays();//清除上次测量
+                var myDis = new BMapLib.DistanceTool(map);
+                myDis.open();//开启鼠标测距
+            }
+        } ];
+        for ( var i = 0; i < txtMenuItem.length; i++) {
+            menu.addItem(new BMap.MenuItem(txtMenuItem[i].text,
+                    txtMenuItem[i].callback, 100));
+            if (i == 1) {
+                menu.addSeparator();
+            }
+        }
+        map.addContextMenu(menu);
+    }
+ 
+    /*自定义驾车最短距离控件*/
+    function ZoomControlDistance() {
+        // 默认停靠位置和偏移量
+        this.defaultAnchor = BMAP_ANCHOR_TOP_RIGHT;
+        this.defaultOffset = new BMap.Size(67, 40);
+    }
+    ZoomControlDistance.prototype = new BMap.Control();// 通过JavaScript的prototype属性继承于BMap.Control
+    //自定义控件必须实现自己的initialize方法,并且将控件的DOM元素返回
+    //在本方法中创建个div元素作为控件的容器,并将其添加到地图容器中
+    ZoomControlDistance.prototype.initialize = function(map) {
+        var div = document.createElement("div");// 创建一个DOM元素
+        div.appendChild(document.createTextNode("最短距离"));// 添加文字说明
+        // 设置样式
+        div.style.cursor = "pointer";
+        div.style.border = "1px solid gray";
+        div.style.background = "#E5E5E5";
+        div.onclick = function(e) {
+            //清除公交和驾车框信息
+            document.getElementById("start").value="";
+            document.getElementById("end").value="";
+            document.getElementById("text").value="";
+            if(souFlag==true){
+                map.clearOverlays();
+            }
+            if (startSelect == true && endSelect == true||flag==true) {
+                drive = new BMap.DrivingRoute(map, {
+                    renderOptions : {
+                        map : map,
+                        panel : 'panel',
+                        autoViewport : true,
+                    },
+                    policy : BMAP_DRIVING_POLICY_LEAST_DISTANCE
+                //选择最短距离作为驾车方案
+                });
+                map.clearOverlays();
+                startSelect = false;
+                endSelect = false;
+                flag=true;
+                drive.search(e1, e2);
+            } else if (startSelect == true && endSelect == false) {
+                alert("请选择终点");
+            } else if (startSelect == false && endSelect == true) {
+                alert("请选择起点");
+            } else {
+                alert("请右键设置起点和终点");
+            }
+        }
+        map.getContainer().appendChild(div);// 添加DOM元素到地图中
+        return div;
+    }
+ 
+    /*自定义驾车最少时间控件*/
+    function ZoomControlTime() {
+        this.defaultAnchor = BMAP_ANCHOR_TOP_RIGHT;
+        this.defaultOffset = new BMap.Size(1, 40);
+    }
+    ZoomControlTime.prototype = new BMap.Control();
+    ZoomControlTime.prototype.initialize = function(map) {
+        var div = document.createElement("div");
+        div.appendChild(document.createTextNode("最少时间"));
+        div.style.cursor = "pointer";
+        div.style.border = "1px solid gray";
+        div.style.background = "#E3E3E3";
+        div.onclick = function(e) {
+            //清除公交和驾车框信息
+            document.getElementById("start").value="";
+            document.getElementById("end").value="";
+            document.getElementById("text").value="";
+            if(souFlag==true){
+                map.clearOverlays();
+            }
+            if (startSelect == true && endSelect == true||flag==true) {
+                var drive = new BMap.DrivingRoute(map, {
+                    renderOptions : {
+                        map : map,
+                        panel : 'panel',
+                        autoViewport : true,
+                    },
+                    policy : BMAP_DRIVING_POLICY_LEAST_TIME
+                //选择最少时间作为驾车方案
+                });
+                map.clearOverlays();
+                startSelect = false;
+                endSelect = false;
+                flag=true;
+                drive.search(e1, e2);
+                 
+            } else if (startSelect == true && endSelect == false) {
+                alert("请选择终点");
+            } else if (startSelect == false && endSelect == true) {
+                alert("请选择起点");
+            } else {
+                alert("请右键设置起点和终点");
+            }
+        }
+        map.getContainer().appendChild(div);
+        return div;
+    }
+ 
+    /*进行地图的一些显示设置和操作*/
+    function mapSetting(map) {
+        var opts = {
+            type : BMAP_NAVIGATION_CONTROL_LARGE,
+            offset : new BMap.Size(0, 25)
+        //改变控件偏移量
+        }
+        map.addControl(new BMap.NavigationControl(opts));//显示完整的平移缩放控件
+        map.addControl(new BMap.ScaleControl());//添加比例尺
+        map.addControl(new BMap.MapTypeControl());//添加地图类型控件
+        map.addControl(new BMap.OverviewMapControl());//添加缩略图
+        map.setDraggingCursor("pointer");//设置拖拽地图时的鼠标指针样式
+        map.enableInertialDragging(true);//启用地图惯性拖拽
+        map.enableScrollWheelZoom(true);//启用滚轮放大缩小
+        var myZoomCtrl = new ZoomControlDistance();// 创建控件实例
+        map.addControl(myZoomCtrl);// 添加到地图当中
+        var myZoomCtrlTime = new ZoomControlTime();
+        map.addControl(myZoomCtrlTime);
+    }
+ 
+    /*搜索位置*/
+    function souSuo() {
+        map.clearOverlays();
+        var local = new BMap.LocalSearch(map, {//设置显示搜索结果选项
+            renderOptions : {
+                map : map,
+                autoViewport : true,
+                selectFirstResult : false
+            },
+            pageCapacity : 8
+        });
+        local.search(document.getElementById("text").value);//显示用户搜索的位置
+        mapSetting(map);
+        map.setCurrentCity(document.getElementById("text").value); //设置该城市的3D图(该城市必须支持3D图)
+    }
+ 
+    //查询公交路线
+    function gongJiao() {
+        map.clearOverlays();//清除地图上的覆盖物（上次查询结果）
+        document.getElementById("text").value="";
+        //清除右键菜单起终点查询结果
+        startSelect=false;
+        endSelect=false;
+        flag=false;
+        var transit = new BMap.TransitRoute(map, {
+            renderOptions : {
+                map : map,
+                panel : 'panel',
+                autoViewport : true,
+            }
+        });
+        transit.search(document.getElementById("start").value, document
+                .getElementById("end").value);
+        souFlag=true;//标记已进行公交查询，来进行右键查询时清除其结果
+    }
+ 
+    //查询驾车路线，目前API仅提供一条驾车方案
+    function jiache() {
+        map.clearOverlays();
+        document.getElementById("text").value="";
+        startSelect=false;
+        endSelect=false;
+        flag=false;
+        var driving = new BMap.DrivingRoute(map, {
+            renderOptions : {
+                map : map,
+                panel : 'panel',
+                autoViewport : true,
+                enableDragging : true
+            }
+        });
+        driving.search(document.getElementById("start").value, document
+                .getElementById("end").value);
+        souFlag=true;//标记已进行驾车查询，来进行右键查询时清除其结果
+    }
+    /*捕捉回车事件*/
+    document.onkeydown = function(event) {
+        e = event ? event : (window.event ? window.event : null);
+        if (e.keyCode == 13) {
+            souSuo();
+        }
+    }
+</script>
+</head>
+<body onload="initialize()">
+    <input type="text" name="text" id="text"
+        style="margin-left: 80px; height: 24px;" />
+    <input type="image" name="image" src="sousuo.jpg" onclick="souSuo();"
+        style="margin-left: 0px; margin-top: 6px; height: 22px; width: 47px" />
+    <input type="text" name="startPoint" id="start"
+        style="margin-left: 220px;" /> 到
+    <input type="text" name="endPoint" id="end" style="margin-left: 0px;" />
+    <input type="image" name="gongjiao" src="gongjiao.jpg"
+        onclick="gongJiao();"
+        style="margin-left: 0px; margin-top: 6px; height: 22px; width: 47px" />
+    <input type="image" name="jiache" src="jiache.jpg" onclick="jiache();"
+        style="margin-left: 0px; margin-top: 6px; height: 22px; width: 47px" />
+    <div id="container"></div>
+    <div id="panel" style="left: 650px; top: 40px"></div>
+</body>
+</html>

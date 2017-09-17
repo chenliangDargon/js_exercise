@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/jquery-1.4.3.js"></script>
+	</head>
+	<body>
+		<button onclick="login.login()">登录</button>
+		
+		<script>
+			var login = {
+				
+				login:function(){
+					login.ajaxSubmit(document.getElementById("login-form"), function(data, a, b){
+						console.log(b)
+						debugger;
+					});
+					
+					return false;
+				},
+				
+				// 将form转为AJAX提交
+				ajaxSubmit:function ajaxSubmit(frm, fn) {
+				   var dataPara = login.getFormJson(frm);
+				   
+				   	$.ajax({
+				     	url : "http://127.0.0.1:9093/login",
+				        type : "post",
+				        data : {"username:":"chenliang","password":"chenliang"},
+				        dataType : "json",
+				        async: false,//异步
+				        success : fn
+				   	});
+				},
+				
+				// 将form中的值转换为键值对。
+				getFormJson:function getFormJson(frm) {
+				   var o = {};
+				   var a = $(frm).serializeArray();
+				   
+				   $.each(a, function() {
+				      if (this.name == "password") {
+				      	//密码加密（后续添加）
+				         this.value = this.value;
+				      }
+				      if (o[this.name] !== undefined) {
+				         if (!o[this.name].push) {
+				            o[this.name] = [ o[this.name] ];
+				         }
+				         o[this.name].push(this.value || '');
+				      } else {
+				         o[this.name] = this.value || '';
+				      }
+				   });
+				   return o;
+				}
+			}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>事件绑定</title>
+		<style>
+			.active{
+				background-color: #006DCC;
+			}
+			
+			button{
+				margin-top: 10px;
+				margin-left: 20px;
+			}
+			
+			.scroller{
+				width: 500px;
+				height: 100px;
+				border: solid #000000 1px;
+				overflow-y: scroll;
+			}
+		</style>
+
+		<meta charset="utf-8" />
+
+		<script src="../js/jquery-1.8.3.min.js"></script>
+
+		<script>
+			$(function() {
+				//使用 jQuery 的 .on() 方法可以为选中的元素绑定任意的 DOM 事件，并添加事件处理程序
+				$('#example').on('click', function(e) {
+					alert('Clicked')
+				});
+
+				//jQuery还支持空格分割，同时绑定多个事件
+				$('#example2').on('mouseenter mouseleave', function(e){
+					var type = e.type;
+					if(e.type==='mouseenter'){
+						console.log('mouseenter');
+					}else if(type==='mouseleave'){
+						console.log('mouseleave');
+					}
+					
+				});
+				
+				//除了上面这种方法外，还可以传入一个键值对来绑定多个事件：
+				$('#example3').on({
+					mouseenter:function(e){
+						console.log('mouseenter3');
+					},
+					click:function(e){
+						console.log('clicked3');
+					}
+				});
+				
+				//使用事件执行的上下文来简化代码
+				$('#example4').on('mouseenter mouseleave', function(e){
+					var type = e.type;
+					var $this = $(this);
+					
+					if(type==='mouseenter'){
+						$this.addClass('active');	
+					}else{
+						$this.removeClass('active');
+					}
+					
+				});
+				
+				/*
+				 * 事件委托
+				 * 此时表示将id='example5'元素的鼠标点击事件绑定到了document元素上，当目标元素触发鼠标单击事件时，事件
+				 * 会冒泡到document元素上，从而出发事件处理程序。使用事件委托的好处是当页面上有很多元素需要绑定鼠标事件，
+				 * 每个元素都取绑定就回有很多的事件处理程序，会对性能造成影响。因此，利用事件冒泡原则，将事件处理绑定到
+				 * 父级或者祖先级元素上，可以明显的减少事件处理程序的数量，改善性能，一般都会绑定到document上
+				 */
+				$(document).on('click', '#example5', function(e){
+					console.log('按钮5点击了');
+				});
+				
+				/**
+				 * 自定义事件以及触发自定义事件
+				 */
+				$('#example6').on('sleep', function(e, time){
+					console.log('Sleeping at '+time+'...');
+				});
+				
+				$('#example6').trigger('sleep', '22:00');
+				
+				/**
+				 * 移除绑定事件 
+				 * 使用 .off() 方法可以移除绑定的事件处理程序，有下面几种情况：
+				 * 不指定任何参数，移除该元素上绑定的所有事件处理程序。
+				 * 指定事件名，如 .off('click') 表示移除该元素上绑定的所有单击事件处理程序。
+				 * 指定事件处理程序，如 .off('click', clickHandler) 表示仅移除该事件处理程序。
+				 * 指定事件命名空间，如 .off('.widget') 表示移除该命名空间下所有的事件处理程序（比如绑定的 click.widget 和 change.widget 事件处理程序都会被移除），
+				 * 该方式可以用于移除某个组件绑定的各种事件。
+				 * 指定事件代理的元素，如 $(document).off('click', '#example')，可以移除为该元素绑定的事件代理处理程序。
+				 */
+				$('#example7').on('click', function(e){alert('Clicked!')});
+				$('#example71').on('click', function(e){
+					var $target = $('#example7');
+					//$target.off();
+					$target.off('click');
+					alert('事件已移除...')
+				});
+				
+				/**
+				 * 使用 .one() 方法绑定的事件处理程序只会触发执行一次，一次后自动移除 
+				 */
+				$('#example8').one('click', function(e){
+					alert('click myself, a...')
+				});
+				
+				/*
+				 * 浏览器中有几个事件会频繁触发，比如 scroll, resize, mousemove 等，
+				 * 那么给这些事件绑定的事件处理程序也会跟着频繁地执行，导致页面反应迟钝，
+				 * 要解决这个问题，需要节流事件，减少事件处理程序执行的频率：
+				 */
+				var timer = 0;
+				$('.scroller').on('scroll', function(){
+					if(!timer){
+						timer = setTimeout(function(){
+							console.log('scroll...');
+							timer = 0;
+						}, 500);
+					}
+				});
+				
+				
+
+
+			});
+		</script>
+	</head>
+
+	<body>
+
+		<button id="example" type="button">Click me!</button><br />
+		<button id="example2" type="button">Mouse on me 2!</button><br />
+		<button id="example3" type="button">Mouse on me 3!</button><br />
+		<button id="example4" type="button">Mouse on me 4!</button><br />
+		<button id="example5" type="button">Mouse on me 5!</button><br />
+		<button id="example6" type="button">Mouse on me 6!</button><br />
+		<button id="example7" type="button">Mouse on me 7!</button> <button id="example71" type="button">Cancel Event!</button><br />
+		<button id="example8" type="button">Mouse on me 8!</button><br />
+		<div class="scroller">
+			overflow-y:scroll; 总是显示纵向滚动条<br />
+			overflow-y:visible : 不剪切内容也不添加纵向滚动条<br />
+			了解：overflow-y手册http://www.divcss5.com/shouce/c_overflowy.<br />
+			overflow-x:scroll; 总是显示横向滚动条<br />
+			overflow-x:visible : 不剪切内容也不添加横向滚动条<br />
+			了解：overflow-x手册http://www.divcss5.com/shouce/c_overflowx.<br />
+		</div>
+	</body>
+
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>forEach</title>
+		<style>
+			#results li.pass {
+				color: green
+			}
+			
+			#results li.fail {
+				color: red
+			}
+		</style>
+	<script src="../js/assert.js"></script>
+	</head>
+	<body>
+		<ul id="results"></ul>
+	</body>
+
+	<script>
+		function forEach(list, callback) {
+			for(var n = 0; n < list.length; n++) {
+				callback.call(list[n], n);
+			}
+		}
+
+		var list = [new Person("xiaoming"), new Person("zhangsan"), new Person("lisi")];
+		
+		function Person(name){
+			this.name = name;
+		}
+
+		forEach(list, function(index) {
+			assert(this === list[index], "Got the expected value : " + list[index]);
+		});
+	</script>
+
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>在JavaScript中存放模板，不在需要单独的模板	</title>
+		
+		<script src="template.js"></script>
+	</head>
+	<body>
+		
+		<div id="content"></div>
+		
+		<div id="content2"></div>
+		
+		
+		<script type="text/javascript">
+			var source = '<ul>{{each list as value i}}<li>{{i+1}}:{{value}}</li>{{/each}}</ul>';
+			var source2 = '<ul>{{each}}<li>{{$index+1}}:{{$value}}</li>{{/each}}</ul>';
+			
+			var data = {list:['iphone','ipad','imac','iphone plus']};
+			var data2 = ['iphone','ipad','imac','iphone plus'];
+			
+		    
+		    var render = template.compile(source);
+		    var html = render(data);
+		    
+		    document.getElementById('content').innerHTML=html;
+		    
+		    var render2 = template.compile(source2);
+		    var html2 = render2(data2);
+		    
+		    document.getElementById('content2').innerHTML = html2;
+			
+		</script>
+	</body>
+</html>
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+</html>

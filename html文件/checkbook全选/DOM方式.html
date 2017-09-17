@@ -1,0 +1,101 @@
+<HTML>
+<HEAD>
+<script type="text/javascript" src="jquery-1.4.3.js"></script>
+<TITLE>Multiple Checkbox Select/Deselect - DEMO(DOM方式)</TITLE>
+</HEAD>
+<BODY>
+<H2>Multiple Checkbox Select/Deselect - DEMO</H2>
+<table border="1">
+  <tr>
+    <th><input type="checkbox" id="selectall"/></th>
+    <th>Cell phone</th>
+    <th>Rating</th>
+  </tr>
+  <tr>
+    <td align="center"><input type="checkbox" class="case" name="case" value="1"/></td>
+    <td>BlackBerry Bold 9650</td>
+    <td>2/5</td>
+  </tr>
+  <tr>
+    <td align="center"><input type="checkbox" class="case" name="case" value="2"/></td>
+    <td>Samsung Galaxy</td>
+    <td>3.5/5</td>
+  </tr>
+  <tr>
+    <td align="center"><input type="checkbox" class="case" name="case" value="3"/></td>
+    <td>Droid X</td>
+    <td>4.5/5</td>
+  </tr>
+  <tr>
+    <td align="center"><input type="checkbox" class="case" name="case" value="4"/></td>
+    <td>HTC Desire</td>
+    <td>3/5</td>
+  </tr>
+  <tr>
+    <td align="center"><input type="checkbox" class="case" name="case" value="5"/></td>
+    <td>Apple iPhone 4</td>
+    <td>5/5</td>
+  </tr>
+</table>
+</BODY>
+</HTML>
+
+
+<script type="text/javascript">
+	window.onload=function(){
+		var all = document.getElementById("selectall");
+		var ids = document.getElementsByClassName("case");
+		all.onclick=function(){
+			for(var i=0; i<ids.length; i++){
+				ids[i].checked=this.checked;
+			}	
+		}
+		
+		//遍历查看子选项是否全部选中，若子选项全部选中则将父选项勾选中
+		for(var i=0; i<ids.length; i++){
+			ids[i].onclick=function(){
+				//获取已经选中的子选项的个数
+				var checkedNo=0;	
+				for(var j=0; j<ids.length; j++){
+					if(ids[j].checked==true){
+						checkedNo++;
+					}
+				}
+				if(ids.length == checkedNo)	{
+					all.checked=true;
+				}else{
+					all.checked=false;	
+				}
+			}
+		}
+		
+	}
+</script>
+
+<!--
+<SCRIPT language="javascript">
+$(function(){
+	
+    $("#selectall").click(function () {
+//		var options = $('.case');
+	//	for(var i=0; i<options.length; i++){
+			
+	//		options[i].checked=this.checked;	
+		//}
+		
+    });
+ 
+    // if all checkbox are selected, check the selectall checkbox
+    // and viceversa
+    $(".case").click(function(){
+ 
+        if($(".case").length == $(".case:checked").length) {
+            $("#selectall").attr("checked", true);
+        } else {
+            $("#selectall").removeAttr("checked");
+        }
+ 
+    });
+}); 
+
+</SCRIPT> --> 

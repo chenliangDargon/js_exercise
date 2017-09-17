@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>jquery1</title>
+	  <meta http-equiv="Content-Type" content="text/html; charset=GBK";>
+	  
+	    <style>
+		  .doublediv { border-color:red;  background:yellow; margin:4px;}
+	</style>
+
+</head>
+
+<body>
+<div class="container">
+    <p id="ceshi1">ceshi</p>
+	<input type="button" onclick="stronger()" value="加粗"/>
+</div>
+
+
+	<p>Hello</p>
+    <p>cruel</p>
+    <p>World</p>
+
+    <div class="doublediv"></div>
+	<button id="add_cdd_p">给p添加样式</button>
+
+<script  src="../js/jquery-1.8.3.min.js" charset="UTF-8"></script>
+
+<!--注释-->
+
+<script type="text/javascript">
+	$(
+		function(){
+			$("#add_cdd_p").on("click", function(event){
+				$("p").wrap($(".doublediv"));
+				$(this).off(event);
+			});
+		}
+	);
+
+   function stronger(){
+		$("#ceshi1").wrap('<strong/>');	//描述: 在每个匹配的元素外层包上一个html元素。
+	}
+	
+</script>
+
+</body>
+</html>

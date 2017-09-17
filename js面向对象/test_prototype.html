@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>无标题文档</title>
+
+		<script>
+			function createObj(name, qq) {
+
+				this.name = name;
+				this.qq = qq;
+
+				createObj.prototype.showName = function() {
+					alert("我的名字叫 ： " + this.name);
+				};
+				createObj.prototype.showQQ = function() {
+					alert("我的QQ号 : " + this.qq);
+				};
+			}
+
+			var obj = new createObj("zhangsan", "34568782343");
+			obj.showName();
+			obj.showQQ();
+			var obj2 = new createObj("lisi", "34534782343");
+			obj2.showName();
+			obj2.showQQ();
+
+			alert(obj.showName() == obj2.showName());
+		</script>
+	</head>
+
+	<body>
+	</body>
+
+</html>

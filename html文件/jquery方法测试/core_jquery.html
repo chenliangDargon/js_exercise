@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>jQuery方法测试</title>
+		
+		<style type="text/css">
+			.red{
+				background-color: red;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<div id="eachDiv">
+			<button onclick="javascript:alert(eachFun())">Change colors</button>
+			<span></span>
+			<div>1</div>
+			<div>2</div>
+
+			<div>3</div>
+			<div>4</div>
+			<div id="stop">Stop here</div>
+			<div>5</div>
+
+			<div>6</div>
+			<div>7</div>
+		</div>
+
+		<ul>
+			<li id="foo">foo</li>
+			<li id="bar">bar</li>
+			<li id="baz">baz</li>
+		</ul>
+
+		<dl>
+			<dt>term 1</dt>
+			<dd>definition 1-a</dd>
+			<dd>definition 1-b</dd>
+			<dd>definition 1-c</dd>
+			<dd>definition 1-d</dd>
+
+			<dt id="term-2">term 2</dt>
+			<dd>definition 2-a</dd>
+			<dd>definition 2-b</dd>
+			<dd>definition 2-c</dd>
+
+			<dt>term 3</dt>
+			<dd>definition 3-a</dd>
+			<dd>definition 3-b</dd>
+		</dl>
+		
+		<ul id="addClass">
+			<li class="li">Hello</li><li class="li">Hello</li><li class="li">Hello</li>
+		</ul>
+		
+		<div class="red" style="width: 50px; height: 50px;" id="toggleClass">点我更换颜色</div>
+		
+		<p><b>Values: </b></p>
+		<form id="map_form">
+		  <input type="text" name="name" value="John"/>
+		  <input type="text" name="password" value="password"/>
+		  <input type="text" name="url" value="http://ejohn.org/"/>
+		</form>
+		
+		<div id="closet">
+			<div class="grandfather">
+				<div class="father">
+					<div class="son">
+						<ul>
+							<li id="closet_li"></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</body>
+
+	<script src="../js/jquery-1.4.3.js" charset="UTF-8"></script>
+	<script>
+		$(function() {
+			//index([subject])用法
+			$('li').index(document.getElementById('bar')); //1，传递一个DOM对象，返回这个对象在原先集合中的索引位置
+			$('li').index($('#bar')); //1，传递一个jQuery对象
+			$('li').index($('li:gt(0)')); //1，传递一组jQuery对象，返回这个对象中第一个元素在原先集合中的索引位置
+			$('#bar').index('li'); //1，传递一个选择器，返回#bar在所有li中的做引位置
+			$('#bar').index(); //1，不传递参数，返回这个元素在同辈中的索引位置。
+
+		});
+		
+		$(function(){
+			//prevUtil向前寻找，直到找对匹配的
+			$('#term-2').prevUntil('dt').last().prev().css('background-color', 'red');
+		});
+
+		/**
+		 * return false 用于提前终止each循环，但是不会终止方法的执行而将方法返回，
+		 * 意味着该函数的最终的返回值是变量result的值，而不是false
+		 */
+		function eachFun() {
+
+			var result = -1;
+			$("div").each(function(index, domEle) {
+				// domEle == this 
+				$(domEle).css("backgroundColor", "yellow");
+				if($(this).is("#stop")) {
+					$("span").text("Stopped at div index #" + index);
+					result = index;
+					return false;
+				}
+			});
+
+			return result;
+		}
+		
+		$(function(){
+			//给li加上不同的class,此处参数不能用class，会报错
+			$("#addClass li").addClass(function(index, clas) {
+			  	return clas + '-' + index;
+			});
+		});
+		
+		$(function(){
+			$("#toggleClass").click(function(){
+				$(this).toggleClass("red", !$(this).hasClass("red"));
+			});
+		});
+		
+		$(function(){
+			$("p").append( $("#map_form input").map(function(){
+			  	return $(this).val();
+			}).get().join(", "));
+		});
+		
+		$(function(){
+			//从元素本身开始，逐级向上级元素匹配，并返回最先匹配的元素
+			console.log($("#closet_li").closest(".father"));
+		});
+		
+		$(function(){
+			var obj = {};
+			obj.name="chenliang";
+			obj.age = 20;
+			obj.sex = "femail";
+			
+			var str = "?";
+			
+			for(var k in obj){
+				console.log(k);
+				str += k + "=" + obj[k] + "&";
+			}
+			
+			str = str.substring(0, str.length -1);
+			
+			console.log(str);
+		});
+	</script>
+
+</html>

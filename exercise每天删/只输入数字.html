@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+
+<script>
+window.onload=function(){
+	var t = document.getElementById("text1");	
+	t.onkeydown=function(e){
+		var oEvent = e || event;
+		var code = oEvent.keyCode;	
+		if((code !=8) && ((code < 48)||(code > 57)) ){
+			return false;	
+		}
+	}
+	
+	alert(parseInt(345.43256));
+	
+	alert('1,2'.charAt('1'));
+	alert('1,2'.indexOf('1'));
+}
+
+function calculate(data){
+//	 var a = 1;
+	 var b = 2;
+	 var c = data + b;
+	 alert(c);
+}
+
+</script>
+</head>
+
+<body>
+<button onclick="calculate(1)">计算</button>
+
+
+
+
+<input type="text" id="text1" name="text1"/><br/>
+
+</body>
+</html>

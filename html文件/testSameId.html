@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		
+		<script src="js/jquery-1.4.3.js"></script>
+	</head>
+	<body>
+		<div id="div1">
+			<input id="accNum"/>
+		</div>
+		
+		<div id="div2">
+			<input id="accNum"/>
+		</div>
+		
+		<button id="but" onclick="test()">TEST</button>
+	</body>
+	
+	<script>
+		function test(){
+			alert($('#div1').find("#accNum").val());
+			alert($('#div2').find("#accNum").val());
+		}
+	</script>
+</html>

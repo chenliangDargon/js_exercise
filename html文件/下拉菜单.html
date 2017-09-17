@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<HTML>
+ <HEAD>
+  <TITLE>下拉列表模拟</TITLE>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8";>
+  <style type="text/css">
+  *{margin:0;padding:0;}
+  #nav{ background-color:#ccc;width:960px;margin:0 auto;height:40px;font-family:"微软雅黑";font-size-20px;}
+  ul li{float:left;padding:0px 18px;text-align:center;line-height:40px;font-family:"微软雅黑";list-style-type:none;}
+  a{text-decoration:none;color:#000;display:block;padding:0px 25px;}
+  a:hover{background-color:#930;color:#FFF;}
+  .erji{float:none;background-color:#ccc;}
+  .erji a:hover{color:#00F;background-color:#999;}
+  .erji_ul{display:none;}
+  ul li:hover .erji_ul{display:block;}
+
+  </style>
+ </HEAD>
+
+ <BODY>
+    <div id="nav">
+	<ul>
+	<li><a href="#">百度</a></li>
+	<li><a href="#">经验</a>
+	
+	   <ul class="erji_ul">
+	      <li class="erji"><a href="#">做菜</a></li>
+		  <li class="erji"><a href="#">洗衣</a></li>
+		  <li class="erji"><a href="#">摄影</a></li>
+	   </ul>
+	
+	</li>
+	<li><a href="#">实用</a>
+	  <ul class="erji_ul">
+	      <li class="erji"><a href="#">CS</a></li>
+		  <li class="erji"><a href="#">LOL</a></li>
+		  <li class="erji"><a href="#">DOTA</a></li>
+	   </ul>
+	</li>
+	<li><a href="#">生活</a>
+	  <ul class="erji_ul">
+	      <li class="erji"><a href="#">餐饮</a></li>
+		  <li class="erji"><a href="#">电影</a></li>
+		  <li class="erji"><a href="#">酒吧</a></li>
+	   </ul>
+	 
+	</li>
+	<li><a href="#">指南</a>
+	  <ul class="erji_ul">
+	      <li class="erji"><a href="#">旅游攻略</a></li>
+		  <li class="erji"><a href="#">考试信息</a></li>
+		  <li class="erji"><a href="#">外语</a></li>
+	   </ul>
+	
+	</li>
+
+	<li><a href="#">联系我们</a>
+	  <ul class="erji_ul">
+	      <li class="erji"><a href="#">电话</a></li>
+		  <li class="erji"><a href="#">邮箱</a></li>
+		  
+	   </ul></li>
+	</ul>
+
+	
+	</div>
+
+	<div>
+		<input type="date" />
+	</div>
+ </BODY>
+</HTML>

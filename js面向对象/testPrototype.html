@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<script>
+		
+		/**
+		 * 你还可以给 JavaScript 的内置函数原型（prototype）添加东西。
+		 * 让我们给 String 添加一个方法用来返回逆序的字符串：
+		 */
+			var str = "Simon";
+//			str.reversed();		//Uncaught TypeError: str.reversed is not a function
+			
+			String.prototype.reversed = function(){
+				var r = "";
+				
+				for(var i = this.length - 1; i >= 0; i--){
+					r += str[i];
+				}
+				
+				return r;
+			}
+			
+			console.log(str.reversed());
+			
+			//定义新方法也可以在字符串字面量上用（string literal)
+			
+			console.log("This can now be reversed".reversed());
+		</script>
+	</body>
+</html>

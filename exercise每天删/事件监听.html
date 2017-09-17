@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style>
+	div{width:400px; height:300px; background-color:white;}
+</style>
+</head>
+
+<script>
+	window.onload=function(){
+		var oBtn = document.getElementById("button1");
+		var oDiv = document.getElementById("div1");
+		//如果给一个dom对象绑定同一个事件，只有最后一个会生效.但是用addEventListener可以让多个事件按顺序都实现
+		oBtn.addEventListener('click', function(){
+										alert("button 被点击了1");
+									}, 
+								false);	
+		oBtn.addEventListener('click', function(){
+										alert("button 被点击了2");
+									},
+								false);	
+		
+		oDiv.addEventListener('click', function(){
+											alert("div 被点击了");
+										}, 
+								false);
+		}
+		
+</script>
+
+<body>
+<div style="width:300px; height:200px; background-color:#FF1;" id="div1">
+<input type="button" id="button1" value="BUTTON"/ align="middle">
+</div>
+</body>
+</html>

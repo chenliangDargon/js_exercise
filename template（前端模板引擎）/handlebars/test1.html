@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		
+		<script src="handlebars-v4.0.5.js"></script>
+	</head>
+	<body>
+		
+		<div id="content"></div>
+		
+		<div id="content2"></div>
+		
+		<script id="template1" type="text/html">
+			title:{{title}}<br/>
+			body:{{body}}
+			body:{{{body}}}
+		</script>
+		
+		<script>
+			var source = document.getElementById('template1').innerHTML;
+			var template = Handlebars.compile(source);
+			
+			var context = {title: "My New Post", body: "<p>This is my first post!</p>"}
+			var html    = template(context);
+			document.getElementById('content').innerHTML=html;
+		</script>
+		
+		<!-- 块表达式 -->
+		<script id="template2" type="text/html">
+			{{#list people}}{{firstName}} {{lastName}}{{/list}}
+		</script>
+		
+		<script>
+			var data = {
+				  people: [
+				    {firstName: "Yehuda", lastName: "Katz"},
+				    {firstName: "Carl", lastName: "Lerche"},
+				    {firstName: "Alan", lastName: "Johnson"}
+				  ]
+			};
+			
+			Handlebars.registerHelper('list', function(items, options){
+				console.log(items);
+				console.log(options);
+				var out = '<ul>';
+				for(var i = 0, l = items.length; i < l; i++){
+					out += '<li>' + options.fn(items[i]) + '</li>';
+				}
+				
+				return out;
+			});
+			
+			var template = Handlebars.compile(document.getElementById('template2').innerHTML);
+			document.getElementById('content2').innerHTML = template(data);
+		</script>
+	</body>
+</html>

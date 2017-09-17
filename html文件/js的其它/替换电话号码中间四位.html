@@ -1,0 +1,36 @@
+<html>
+  <head>
+  
+    <title>testDocument</title>
+	
+	<script type="text/javascript" src="jquery-1.4.3.js"></script>
+	
+	<script type="text/javascript">
+		function changeText(){
+			var telS = $("#tel").val();
+			
+			var tel =	telS.substring(0,3)+"****"+telS.substring(7);
+			alert(tel);
+		}
+
+		
+
+
+	</script> 
+
+  </head>
+  
+  <body onLoad="message();">
+  
+	<h2 id="h2">标题H2</h2>
+
+	<input type="text" id="tel" value="15035130325"/><br/>
+	<input type="button"  value="替换文本框内容" onClick="changeText();" /><br/>
+
+
+
+  </body>
+</html>
+
+
+

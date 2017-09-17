@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<!--<body>-->
+
+	<body onbeforeunload="return onbeforeunload_handler();" onunload="onunload_handler()">
+		<h1>测试监听浏览器关闭事件</h1>
+	</body>
+
+	<script>
+//		window.onbeforeunload = onbeforeunload_handler;
+//		window.onunload = onunload_handler;
+
+		function onbeforeunload_handler() {
+			return "确认退出?";
+		}
+
+		function onunload_handler() {
+			debugger;
+			window.open("http://www.jb51.net");   
+		}
+	</script>
+
+</html>

@@ -1,0 +1,85 @@
+
+<html>
+  <head>
+    <base href="<%=basePath%>">
+    
+    <title>My JSP 'index.jsp' starting page</title>
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="expires" content="0">    
+	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+	<meta http-equiv="description" content="This is my page">
+	<!--
+	<link rel="stylesheet" type="text/css" href="styles.css">
+	-->
+	<script type="text/javascript" src="jquery.js" charset="GBK"></script>
+	<script type="text/javascript" src="jquery-ui.min.js" charset="GBK"></script>
+	<script type="text/javascript" src="jquery.multiselect.js" charset="GBK"></script>
+    
+    <link rel="stylesheet" type="text/css" href="jquery-ui.css"/>
+	<link rel="stylesheet" type="text/css" href="jquery.multiselect.css" />
+
+	<script type="text/javascript">
+		$(function(){
+				$("#test").multiselect({
+				//设置在多少个元素被选中时候显示完整的元素的文本，如果超过则显示 “XX”被选中
+				//$("#test").get(0).options.length  可以获取当前下拉里有多少个选项
+				//selectedList: $("#sel_example").get(0).options.length 
+				//var a = $("#test").get(0).options.length
+				selectedList: 2
+				
+			});
+
+				$("#example-optgroup").multiselect({
+				selectedList: 3
+				
+			});
+			$("#test option[value='option_value_1']").attr("selected", true);
+		});
+
+//---或者采用如下方式，将页面中的select全部变成多选框
+//		$(function(){
+//			$("select").multiselect();
+//		});
+		
+	</script> 
+  </head>
+ 
+  <body>
+
+
+ <select id="test" name="test" multiple="multiple">
+	<option>TEST1</option>
+	<option>TEST2</option>
+	<option>TEST3</option>
+	<option>TEST4</option>
+	<option>TEST5</option>
+</select>
+<br/>
+
+<div>
+	<h3>With Optgroups</h3>
+<p>Click on an optgroup's heading to toggle the checked state of the entire group.</p>
+<p>
+	<select name="example-optgroup" id="example-optgroup" multiple="multiple" size="5">
+	<optgroup label="Group One">
+		<option value="option1">Option 1</option>
+		<option value="option2">Option 2</option>
+		<option value="option3">Option 3</option>
+	</optgroup>
+	<optgroup label="Group Two">
+		<option value="option4">Option 4</option>
+		<option value="option5">Option 5</option>
+		<option value="option6">Option 6</option>
+		<option value="option7">Option 7</option>
+	</optgroup>
+	</select>
+</p>
+</div>
+
+ 
+  </body>
+</html>
+
+
+

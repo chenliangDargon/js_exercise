@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>jquery1</title>
+	  <meta http-equiv="Content-Type" content="text/html; charset=GBK";>
+	  
+	    <style>
+
+		  .doublediv { border-color:red;  background:yellow; margin:4px;}
+		</style>
+
+	<script  src="../js/jquery-1.8.3.min.js" charset="UTF-8"></script>
+
+</head>
+
+<body>
+<p>这是一个段落。</p>
+<button>测试 jQuery</button>
+
+
+
+<!--注释
+jQuery 名称冲突
+jQuery 使用 $ 符号作为 jQuery 的简介方式。
+某些其他 JavaScript 库中的函数（比如 Prototype）同样使用 $ 符号。
+jQuery 使用名为 noConflict() 的方法来解决该问题。
+noConflict() 可返回对 jQuery 的引用，您可以把它存入变量，以供稍后使用。
+var jq=jQuery.noConflict()，帮助您使用自己的名称（比如 jq）来代替 $ 符号。
+-->
+
+<script>
+$.noConflict();
+jQuery(function(){
+  jQuery("button").click(function(){
+    jQuery("p").text("jQuery 仍在运行！");
+  });
+});
+</script>
+
+</body>
+</html>

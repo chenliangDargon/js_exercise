@@ -1,0 +1,70 @@
+<html>
+  <head>
+  
+    <title>testDocument</title>
+	
+	<script type="text/javascript" src="jquery-1.4.3.js"></script>
+	
+	<script type="text/javascript">
+		document.write("hello world" +"<br/>");
+
+		function message(){
+			alert("此对话框是通过onload事件调用的！");
+		}
+		
+		function changeText(){
+			var textEle = document.getElementById("divtext");
+			var text = document.getElementById("divtext").innerHTML;
+			textEle.innerHTML=text.replace(text, "new Text");
+		}
+
+		var people= "pres";
+		var result = (people == "prs") ?  "PRESIDENT" : "VISITOR";
+		document.write(result + "<br/>");
+
+
+		var day = new Date();
+		var hours = day.getHours();
+		var minutes = day.getMinutes();
+		document.write("现在时刻："+hours + "时" + day.getMinutes());
+		if(hours < 10){
+			document.write("<p>Good Morning!</p>");
+		}else{
+			document.write("<p>Good AfterNoon!</p>");
+		}
+
+		document.write("<a href='http://www.baidu.com'>百度</a><br/>");
+
+		var theDay = day.getDay();										//从 Date 对象返回一周中的某一天 (0 ~ 6),周日0，周一1...
+		document.write("今天是周 "+ theDay + "<br/>") ;
+
+		document.write("今天是" + day.getDate() + "号<br/>");			//day.getDate();从 Date 对象返回一个月中的某一天 (1 ~ 31)
+
+
+		function getinputValue(x){
+			alert($(x).val());
+		}
+
+
+	</script> 
+
+  </head>
+  
+  <body onLoad="message();">
+  
+	<h2 id="h2">标题H2</h2>
+	<div id="divtext">DIV Text</div>
+	<input type="text" id="text" name="text" value="Microsoft"/><br/>
+	<input type="button" value="替换文本框内容" onClick="changeText();" /><br/>
+
+	<input type="text"  oninput="getinputValue(this)"/><br/>
+
+	<input type="button" onclick="alert(Number.MAX_VALUE)"  value="js最大的数"/><br/>
+
+	<input type="button" onclick="alert(Number.NaN)"  value="js特殊的非数字值"/><br/>
+
+  </body>
+</html>
+
+
+
