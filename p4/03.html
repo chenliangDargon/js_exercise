@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>03语言核心-数据类型</title>
+	</head>
+	<body>
+		 <!--按照1、2、3...的方式描述加载顺序	
+		 	原则，先执行定义var、function ，再执行
+		 -->
+		 
+		 <!--javascript的基本数据类型：
+		 	String
+		 	number
+		 	Boolean		
+		 	undefined	数据类型为undefined,缺少值
+		 	null		数据类型为Object
+		 -->
+		<script>
+			fn();				//3
+			var a={};			//1		4：{}=>a
+			console.log(b);		//5
+			function fn(){		//2
+				console.log(a);
+				var a=b=2;		//会隐式的声明一个全局变量b，并将2赋值给b，再将b赋值给局部变量a		
+				console.log(a);		//变量寻找有就近原则
+			}
+			console.log(a);
+		</script>
+		
+		<script>
+			console.log(typeof undefined);
+			console.log(typeof null);
+		</script>
+		
+		<script>
+			/*原型链
+			 * 几乎任何对象有一个[[prototype]]属性，在标准中，这是一个隐藏属性。该属性指向的是这个对象的原型。
+			 * 通过new操作符调用的函数就是构造函数。由构造函数构造的对象，其[[prototype]]指向其构造函数的prototype属性指向的对象。
+			 * 每个函数都有一个prototype属性，其所指向的对象带有constructor属性，这一属性指向函数自身
+			 * */
+			var Person = function(){};	//构成函数
+			Person.prototype = {		//封装属性方法
+				work:function(){
+					return "正在工作！";
+				}
+			};
+			var max = new Person();
+			console.log(max.__proto__ == Person.prototype);
+			console.log(max.work());
+		</script>
+	</body>
+</html>
