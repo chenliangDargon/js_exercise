@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+
+		<script>
+			function __typeof__(objClass) {
+				if(objClass && objClass.constructor) {
+					var strFun = objClass.constructor.toString();
+					var className = strFun.substr(0, strFun.indexOf('('));
+					className = className.replace('function', '');
+					return className.replace(/(^\s*)|(\s*$)/ig, '');
+				}
+				return typeof(objClass);
+			}
+
+			Object.prototype.Serialize = function() {
+				var type = __typeof__(this);
+
+				switch(type) {
+					case 'Array':
+						{
+							var strArray = '[';
+							for(var i = 0; i < this.length; ++i) {
+								var value = '';
+								if(this[i]) {
+									value = this[i].Serialize();
+								}
+								strArray += value + ',';
+							}
+							if(strArray.charAt(strArray.length - 1) == ',') {
+								strArray = strArray.substr(0, strArray.length - 1);
+							}
+							strArray += ']';
+							return strArray;
+						}
+					case 'Date':
+						{
+							return 'new Date(' + this.getTime() + ')';
+						}
+					case 'Boolean':
+					case 'Function':
+					case 'Number':
+					case 'String':
+						{
+//							return this.toString();
+							return this.toString();
+						}
+					default:
+						{
+							var serialize = '{';
+							for(var key in this) {
+								if(key == 'Serialize') continue;
+								var subserialize = 'null';
+								if(this[key] != undefined) {
+									subserialize = this[key].Serialize() ;
+								}
+								serialize += '\r\n' + key + ' = ' + subserialize + ',';
+							}
+							if(serialize.charAt(serialize.length - 1) == ',') {
+								serialize = serialize.substr(0, serialize.length - 1);
+							}
+							serialize += '\r\n}';
+							return serialize;
+						}
+				}
+			};
+
+			var obj1 = function(){
+				return "chenliang";
+			}
+			
+			/*var obj1inst = new obj1();
+			
+			var obj1s = JSON.stringify(obj1inst);
+			console.log(obj1s);
+			
+			console.log(eval(obj1s));*/
+
+			var obj3 = function(pubInfo){
+				this.pubInfo = pubInfo || "33";
+				
+				this.getPubInfo = function() {
+					return this.pubInfo;
+				};
+				
+				this.setPubInfo = function(pubInfo){
+					this.pubInfo = pubInfo;
+				};
+				
+				this.checkPubInfo = function(){
+					return !!this.pubInfo;
+				}
+			};
+			
+			/*var obj3inst = new obj3();
+			var obj3s = obj3inst.Serialize();
+			alert(obj3s);
+			var reverseobj3inst = eval(obj3s);
+			console.log(reverseobj3inst);*/
+			
+			var testfunctionstr = '(function aa(){console.log("执行了aa函数");})()'
+			
+			eval(testfunctionstr);
+			
+		</script>
+	</body>
+
+</html>

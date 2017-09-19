@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		输入：<input id="testinput" /><br />
+		<button onclick="test()">测试</button>
+		
+	</body>
+	
+	<script>
+	
+	function test(){
+		var regex = '^[a-z]+$';
+		
+		/**
+		 * 修饰符说明：
+		 * i	执行对大小写不敏感的匹配。
+			g	执行全局匹配（查找所有匹配而非在找到第一个匹配后停止）。
+			m	执行多行匹配。
+		 */
+		
+		var newRegExp = new RegExp(regex,'g');
+		
+		
+		var testvalue = document.getElementById("testinput").value;
+		
+		var result = newRegExp.test(testvalue);
+		
+		console.log(result);
+		alert(result);
+	}
+	</script>
+</html>

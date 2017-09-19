@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+
+		<script>
+			function __typeof__(objClass) {
+				if(objClass && objClass.constructor) {
+					var strFun = objClass.constructor.toString();
+					var className = strFun.substr(0, strFun.indexOf('('));
+					className = className.replace('function', '');
+					return className.replace(/(^\s*)|(\s*$)/ig, '');
+				}
+				return typeof(objClass);
+			}
+
+			Object.prototype.Serialize = function() {
+				var type = __typeof__(this);
+
+				switch(type) {
+					case 'Array':
+						{
+							var strArray = '[';
+							for(var i = 0; i < this.length; ++i) {
+								var value = '';
+								if(this[i]) {
+									value = this[i].Serialize();
+								}
+								strArray += value + ',';
+							}
+							if(strArray.charAt(strArray.length - 1) == ',') {
+								strArray = strArray.substr(0, strArray.length - 1);
+							}
+							strArray += ']';
+							return strArray;
+						}
+					case 'Date':
+						{
+							return 'new Date(' + this.getTime() + ')';
+						}
+					case 'Boolean':
+					case 'Function':
+					case 'Number':
+					case 'String':
+						{
+							return this.toString();
+						}
+					default:
+						{
+							var serialize = '{';
+							for(var key in this) {
+								if(key == 'Serialize') continue;
+								var subserialize = 'null';
+								if(this[key] != undefined) {
+									subserialize = this[key].Serialize();
+								}
+								serialize += '\r\n' + key + ' = ' + subserialize + ',';
+							}
+							if(serialize.charAt(serialize.length - 1) == ',') {
+								serialize = serialize.substr(0, serialize.length - 1);
+							}
+							serialize += '\r\n}';
+							return serialize;
+						}
+				}
+			};
+
+			var obj1 = ["2"];
+			var obj1s = obj1.Serialize();
+			
+//			alert(obj1s);
+//			alert(eval(obj1s).length);
+
+			var obj2 = [1, [2, [3, [4, [5, [6, [7, [8, [9, [0]]]]]]]]]];
+			
+//			alert(obj2.Serialize());
+
+			var obj3 = {
+				Properties1: 1,
+				Properties2: '2',
+				Properties3: [3],
+				Method1: function() {
+					return this.Properties1 + this.Properties3[0];
+				},
+				Method2: function() {
+					return this.Preperties2;
+				}
+			};
+			
+			var obj3s = obj3.Serialize();
+			alert(obj3s);
+			debugger;
+			console.log(typeof eval(obj3s));
+
+			/*var obj4 = [null, 1, 'string', true, function() {
+				return 'keke';
+			}, new Object()];
+			alert(obj4.Serialize());*/
+		</script>
+	</body>
+
+</html>

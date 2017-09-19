@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>考验你的JavaScript底细</title>
+		
+		<script src="../html文件/js/jquery-1.8.3.min.js"></script>
+	</head>
+
+	<body>
+		<button id="but">按钮</button>
+
+		<!--<script>
+			/*Javascrip中国每个函数都会有一个Arguments对象实例arguments，它引用着函数的实参，可以用数组下标的方式"[]"引用arguments的元素。
+					arguments.length为函数实参个数，arguments.callee引用函数自身. 
+					arguments这个对象不能显式创建，arguments对象只有函数开始时才可用。
+						使用方法：
+					虽然arguments对象并不是一个数组，但是访问单个参数的方式与访问数组元素的方式相同*/
+			var result1 = (function() {
+				return typeof arguments;
+			})();
+
+			console.log(result1);
+
+			function aa() {
+
+				return typeof arguments;
+			}
+
+			var result11 = aa(2, 3);
+			console.log(result11);
+
+			function sum(n) {
+				if(n == 1) {
+					return n;
+				} else {
+					return n + arguments.callee(n - 1);
+				}
+			}
+
+			console.log(sum(6));
+		</script>-->
+
+		<!--<script>
+			var f = function g(n) {
+				return n*2;
+			};
+			
+			console.log(f(3));
+			console.log(g(4));				//Error
+			console.log(typeof g);			//undifined
+			console.log(typeof f);			//function
+			console.log(typeof g());		//Error
+		</script>-->
+
+		<script type="text/javascript">
+			var result = (function(x) {
+				delete x;
+				return x;
+			})(1);
+			
+			console.log(result);
+			
+			(function($){
+				console.log($);
+				console.log($("#but").html());
+			})(jQuery);
+		</script>
+	</body>
+
+</html>
