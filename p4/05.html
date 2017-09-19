@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<!--
+			当我们调用一个函数fn的时候，首先会去栈中检索有没有fn的变量。有：根据fn变量存储的内存地址找到对应的内存空间，如果fn变量
+			没有存储内存地址，就会去堆中找fn的引用，堆中没有则报错
+		-->
+		<script>
+			/*var fn = function(){
+				console.log(1);
+			}*/
+			
+			var fn = {};
+			
+			function fn(){
+				console.log(2);
+			}
+			
+			fn();
+		</script>
+	</body>
+</html>
