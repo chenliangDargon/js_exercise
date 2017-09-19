@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style>
+	div{width:400px; height:300px; background-color:#00FF00;}
+</style>
+</head>
+
+<script>
+	window.onload=function(){
+		var oBtn = document.getElementById("button1");
+		var oBtn2 = document.getElementById('button2');
+		var oDiv = document.getElementById("div1");
+		
+		oBtn2.onclick=function(){
+			console.log('button2 被点击了1');
+		}
+		
+		oBtn2.onclick=function(){
+			console.log('button2 被点击了2');
+		}
+		//如果给一个dom对象绑定同一个事件，只有最后一个会生效.但是用addEventListener可以让多个事件按顺序都实现
+		oBtn.addEventListener('click', function(){
+										console.log("button 被点击了1");
+									}, 
+								false);	
+		oBtn.addEventListener('click', function(){
+										console.log("button 被点击了2");
+									},
+								false);	
+		
+		oDiv.addEventListener('click', function(){
+											console.log("div 被点击了");
+										}, 
+								false);
+	};
+	
+	function A(){
+		console.log('A');
+	}
+	
+	function B(){
+		console.log('B');
+	}
+	
+	
+		
+</script>
+
+<body>
+<div id="div1">
+<input type="button" id="button1" value="BUTTON"/ align="middle">
+</div>
+
+<button id="button2" value="BUTTON2">BUTTON2</button>
+
+<button id="button3" onclick="A(),B()">BUTTON3</button>
+</body>
+</html>

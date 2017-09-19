@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		
+		<script>
+			function fun(a, b){
+				console.log(b);
+				return {
+					fun:function(c){
+						return fun(c, a);
+					}
+				};
+			}
+			
+			var m = fun(0); m.fun(1); m.fun(2); m.fun(3);	//undefined,0,0,0
+			var n = fun(0).fun(1).fun(2).fun(3);			//undefined,0,1,2
+			var k = fun(0).fun(1); k.fun(2); k.fun(3);		//undefined,0,1,1
+			
+			
+			/**
+			* 获取指定函数的函数名称（用于兼容IE）
+			* @param {Function} fun 任意函数
+			*/
+			function getFunctionName(fun) {
+			    if (fun.name !== undefined)
+			        return fun.name;
+			    var ret = fun.toString();
+			    ret = ret.substr('function '.length);
+			    ret = ret.substr(0, ret.indexOf('('));
+			    return ret;
+			}
+			
+			function aaa(data){
+				
+			}
+			
+			
+			console.log(aaa.name);	console.log(getFunctionName(aaa));
+			console.log(function bb(){}.name);
+			console.log(function(cc){}.name);	console.log(getFunctionName(function(cc){}));
+			
+			/**
+			 * 自执行函数
+			 */
+			(function(){console.log('自执行1');})();
+			(function f2(){console.log('自执行2');})();
+			
+			var o={
+			  fn:function (){
+			    console.log(fn);
+			  }
+			};
+			o.fn();//ERROR报错
+			
+			
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

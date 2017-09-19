@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>test_console</title>
+		
+		<script>
+			window.onload = function(){
+				console.assert(1==2,'assert22');
+				
+				for(var i = 0; i < 5; i++){
+					console.count('count');
+				}
+				
+				console.count('count');
+				
+				var obj = {
+				  	name: 'classicemi',
+				  	college: 'HUST',
+				  	major: 'ei'
+				};
+				console.dir(obj);
+				console.log(obj);
+				
+				console.error('error');
+				
+				console.log('这是第一层');
+				console.group();
+				console.log('这是第二层');
+				console.group();
+				console.log('这是第三层');
+				console.groupEnd();
+				console.log('回到第二层');
+				console.groupEnd();
+				console.log('回到第一层');
+				
+				var obj2 = {
+					  foo: {
+					    name: 'foo',
+					    age: '33',
+					    sex:'男'
+					  },
+					  bar: {
+					    name: 'bar',
+					    age: '45',
+					    sex:'女'
+					  }
+					};
+					
+					var arr = [
+					  ['foo', '33'],
+					  ['bar', '45']
+					];
+					
+				console.table(obj2);
+				console.table(arr);
+				
+				function addfun(){
+					var count = 0;
+					for(var i =0; i<1000; i++){
+						count+=i;
+					}
+					console.log(count);
+				}
+				
+				
+				console.profile('函数性能分析');
+				addfun();
+				console.profileEnd();
+			}
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

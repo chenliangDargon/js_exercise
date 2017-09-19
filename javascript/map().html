@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Array的map()方法示例</title>
+		
+		<script type="text/javascript">
+			var numbers = [2, -4, 5, -1, 0, -3, 9, -22];
+			
+			function parseAbs(element){
+				
+				return element < 0 ? -element : element;
+				
+			}
+			
+			var result = numbers.map(parseAbs);
+			console.log(result);
+			
+		</script>
+	</head>
+	<body>
+	</body>
+</html>
