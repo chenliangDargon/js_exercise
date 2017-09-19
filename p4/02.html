@@ -6,8 +6,31 @@
 	</head>
 	<body>
 		<script>
-			var aa = null;
-			console.log(typeof aa);
+			fn();
+			var a = {};
+			console.log(a);
+			function fn(){
+				console.log(a);
+				
+				var a = {};
+			}
+			
+			console.log(a);
+			/**
+			 * 加载顺序：
+			 * 先定义	var变量，function函数，从上往下
+			 * 后执行	除了定义代码其余的全部都是执行代码
+			 */
+			
+			//自执行函数
+			(function(){		//执行代码or定义代码？
+				
+			})();
+			
+			fn1();				//fn1 is not a function
+			var fn1 = function(){
+				console.log(1);
+			}
 			
 		</script>
 	</body>
